@@ -157,10 +157,14 @@ onMounted(loadVideos);
 }
 
 .eyebrow {
-  color: var(--color-on-media-accent);
+  color: var(--color-accent);
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.16em;
+}
+
+.videos-hero .eyebrow {
+  color: var(--color-on-media-accent);
 }
 
 .videos-hero h1 {
