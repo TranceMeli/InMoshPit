@@ -15,12 +15,12 @@ with the recordings. Available in German and English.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/streams.png" alt="Live streams overview"><br><sub>Live streams: live now, coming up, past</sub></td>
-    <td width="50%"><img src="docs/screenshots/stream-countdown.png" alt="Countdown for an upcoming stream"><br><sub>Countdown for an upcoming stream</sub></td>
+    <td width="50%" valign="top"><img src="docs/screenshots/streams.png" alt="Live streams overview"><br><sub>Live streams: live now and coming up</sub></td>
+    <td width="50%" valign="top"><img src="docs/screenshots/events.png" alt="Events overview"><br><sub>Concerts and festivals in several cities</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top"><img src="docs/screenshots/events.png" alt="Events overview"><br><sub>Concerts and festivals</sub></td>
     <td width="50%" valign="top"><img src="docs/screenshots/videos.png" alt="Concert recordings archive"><br><sub>Recordings archive</sub></td>
+    <td width="50%" valign="top"><img src="docs/screenshots/stream-countdown.png" alt="Countdown for an upcoming stream"><br><sub>Countdown for an upcoming stream</sub></td>
   </tr>
 </table>
 
