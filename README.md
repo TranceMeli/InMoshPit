@@ -9,7 +9,20 @@ with the recordings. Available in German and English.
 - Recordings archive with likes and comments
 - Events (concerts, festivals) with line-up and stages, artists and bands
 - Registration and JWT login
-- Light and dark theme, DE/EN language switcher
+- DE/EN language switcher
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/streams.png" alt="Live streams overview"><br><sub>Live streams: live now, coming up, past</sub></td>
+    <td width="50%"><img src="docs/screenshots/stream-countdown.png" alt="Countdown for an upcoming stream"><br><sub>Countdown for an upcoming stream</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top"><img src="docs/screenshots/events.png" alt="Events overview"><br><sub>Concerts and festivals</sub></td>
+    <td width="50%" valign="top"><img src="docs/screenshots/videos.png" alt="Concert recordings archive"><br><sub>Recordings archive</sub></td>
+  </tr>
+</table>
 
 ## Stack
 
