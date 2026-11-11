@@ -10,22 +10,49 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
+def env_list(name, default=""):
+    """Kommagetrennte Umgebungsvariable als Liste (leere Einträge entfallen)."""
+    return [
+        item.strip()
+        for item in os.environ.get(name, default).split(",")
+        if item.strip()
+    ]
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'dev-only-insecure-key-do-not-use-in-production'
+
+# Configuration via environment variables
+# See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
+#
+#   DJANGO_DEBUG                 "0" / "false" disables debug mode (default: on,
+#                                so local development works without setup)
+#   DJANGO_SECRET_KEY            required when debug mode is off
+#   DJANGO_ALLOWED_HOSTS         comma-separated host names
+#   DJANGO_CORS_ALLOWED_ORIGINS  comma-separated frontend origins
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", "1").strip().lower() not in {"0", "false", "no", "off"}
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "")
+
+if not SECRET_KEY:
+    if not DEBUG:
+        raise ImproperlyConfigured(
+            "DJANGO_SECRET_KEY must be set when DJANGO_DEBUG is disabled."
+        )
+
+    # Only for local development. Never used when debug mode is off.
+    SECRET_KEY = "dev-only-insecure-key-do-not-use-in-production"
+
+ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS")
 
 
 # Application definition
@@ -143,12 +170,19 @@ MAILERS = {
 # InMoshPit
 AUTH_USER_MODEL = "accounts.User"
 
-CORS_ALLOWED_ORIGINS = [
+_DEV_CORS_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "http://localhost:5177",
     "http://127.0.0.1:5177",
 ]
+
+# Without DJANGO_CORS_ALLOWED_ORIGINS only the local dev servers are allowed,
+# and only in debug mode.
+CORS_ALLOWED_ORIGINS = env_list(
+    "DJANGO_CORS_ALLOWED_ORIGINS",
+    ",".join(_DEV_CORS_ORIGINS) if DEBUG else "",
+)
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
