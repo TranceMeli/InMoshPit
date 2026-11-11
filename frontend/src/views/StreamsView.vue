@@ -221,6 +221,8 @@ onBeforeUnmount(() => clearInterval(refreshTimer));
   padding: 4px 10px;
   color: var(--color-on-primary);
   background: #100b18cc;
+  /* Dunkler Rand, damit das Badge auch auf pinken oder gelben Covern lesbar bleibt. */
+  box-shadow: 0 0 0 2px #100b18;
   border-radius: 6px;
   font-size: 0.72rem;
   font-weight: 800;

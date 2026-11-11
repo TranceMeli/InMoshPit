@@ -250,13 +250,13 @@ h2 {
   padding: 0.4rem 0.75rem;
   border-radius: 999px;
   background: var(--color-surface-2);
-  color: var(--color-primary);
+  color: var(--color-brand-text);
   font-size: 0.8rem;
   font-weight: 700;
 }
 
 .website-link {
-  color: var(--color-primary);
+  color: var(--color-brand-text);
   font-weight: 600;
   text-decoration: none;
 }

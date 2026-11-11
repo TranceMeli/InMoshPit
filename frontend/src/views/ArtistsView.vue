@@ -299,7 +299,7 @@ h1 {
   padding: 0.3rem 0.6rem;
   border-radius: 999px;
   background: var(--color-surface-2);
-  color: var(--color-primary);
+  color: var(--color-brand-text);
   font-size: 0.75rem;
   font-weight: 700;
 }
