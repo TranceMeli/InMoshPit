@@ -53,7 +53,7 @@ python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 python manage.py migrate
-python manage.py seed_demo        # demo events, streams and a video
+python manage.py seed_demo        # demo venues, acts, events, streams, videos and covers
 python manage.py runserver 8002
 ```
 
