@@ -38,8 +38,11 @@ class Command(BaseCommand):
         )
         artist.genres.add(punk)
 
+        # Der Name enthält bewusst keine Stadt (sie steht im Feld "city" und
+        # wird je nach Sprache übersetzt). Ältere Demo-Daten werden umbenannt.
+        Venue.objects.filter(name="Arena Wien").update(name="Grand Arena")
         venue, _ = Venue.objects.get_or_create(
-            name="Arena Wien", city="Wien", defaults={"country": "Österreich", "capacity": 3000},
+            name="Grand Arena", city="Wien", defaults={"country": "Österreich", "capacity": 3000},
         )
 
         def make_event(slug, title, start, etype=Event.EventType.CONCERT):
@@ -94,7 +97,7 @@ class Command(BaseCommand):
                 "title": "MoshPit Live Night – Iron Pit", "event": live_event,
                 "performance": live_perf, "status": Stream.Status.LIVE,
                 "scheduled_at": now - timedelta(hours=1), "started_at": now - timedelta(minutes=50),
-                "playback_url": TEST_HLS, "description": "Jetzt live aus der Arena Wien.",
+                "playback_url": TEST_HLS, "description": "Jetzt live aus der Grand Arena.",
             },
         )
         Stream.objects.get_or_create(

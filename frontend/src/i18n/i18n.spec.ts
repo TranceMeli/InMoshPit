@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it } from "vitest";
 
 import de from "./locales/de.json";
 import en from "./locales/en.json";
-import { getLocale, intlLocale, setLocale, t } from "./index";
+import { getLocale, intlLocale, placeName, setLocale, t, timeZoneOptions } from "./index";
+import { formatStreamDate } from "../services/streams";
 
 function flatten(obj: Record<string, unknown>, prefix = ""): string[] {
   return Object.entries(obj).flatMap(([key, value]) =>
@@ -84,5 +85,28 @@ describe("locale switching", () => {
     setLocale("de");
     expect(t("events.count", 1)).toBe("1 Event");
     expect(t("events.count", 2)).toBe("2 Events");
+  });
+});
+
+describe("places and time zone", () => {
+  it("translates known city and country names in English only", () => {
+    setLocale("en");
+    expect(placeName("Wien")).toBe("Vienna");
+    expect(placeName("Österreich")).toBe("Austria");
+    expect(placeName("Vereinigtes Königreich")).toBe("United Kingdom");
+    expect(placeName("Berlin")).toBe("Berlin");
+
+    setLocale("de");
+    expect(placeName("Wien")).toBe("Wien");
+  });
+
+  it("shows the time zone in English but not in German", () => {
+    setLocale("en");
+    expect(timeZoneOptions()).toEqual({ timeZoneName: "short" });
+    expect(formatStreamDate("2026-11-25T09:25:00Z")).toMatch(/\d{2}:\d{2} (UTC|GMT|CET|CEST|GMT[+-]\d+)$/);
+
+    setLocale("de");
+    expect(timeZoneOptions()).toEqual({});
+    expect(formatStreamDate("2026-11-25T09:25:00Z")).not.toMatch(/GMT|UTC|MEZ/);
   });
 });

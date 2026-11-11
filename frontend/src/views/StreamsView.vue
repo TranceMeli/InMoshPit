@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from "../i18n";
+import { placeName, t } from "../i18n";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 
@@ -112,7 +112,7 @@ onBeforeUnmount(() => clearInterval(refreshTimer));
                 <p class="meta">
                   {{ stream.venue_name
                   }}<template v-if="stream.venue_city">
-                    · {{ stream.venue_city }}</template
+                    · {{ placeName(stream.venue_city) }}</template
                   >
                 </p>
                 <p class="meta when">

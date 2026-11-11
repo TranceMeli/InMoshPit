@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { t, intlLocale } from "../i18n";
+import { t, intlLocale, placeName, timeZoneOptions } from "../i18n";
 import { onMounted, ref } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import { getEvent } from "../services/events";
@@ -27,6 +27,7 @@ function formatTime(value: string | null): string {
   return new Intl.DateTimeFormat(intlLocale(), {
     hour: "2-digit",
     minute: "2-digit",
+    ...timeZoneOptions(),
   }).format(new Date(value));
 }
 
@@ -89,7 +90,7 @@ onMounted(loadEvent);
           <h1>{{ event.title }}</h1>
 
           <p class="hero-location">
-            {{ event.venue.name }} · {{ event.venue.city }}
+            {{ event.venue.name }} · {{ placeName(event.venue.city) }}
           </p>
         </div>
       </section>
@@ -206,9 +207,9 @@ onMounted(loadEvent);
               <span>{{ event.venue.address }}</span>
               <span>
                 {{ event.venue.postal_code }}
-                {{ event.venue.city }}
+                {{ placeName(event.venue.city) }}
               </span>
-              <span>{{ event.venue.country }}</span>
+              <span>{{ placeName(event.venue.country) }}</span>
             </div>
 
             <a

@@ -1,5 +1,5 @@
 import { api } from "./api";
-import { intlLocale, t } from "../i18n";
+import { intlLocale, t, timeZoneOptions } from "../i18n";
 
 export type StreamStatus = "scheduled" | "live" | "ended" | "cancelled";
 
@@ -69,5 +69,6 @@ export function formatStreamDate(value: string): string {
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    ...timeZoneOptions(),
   }).format(new Date(value));
 }

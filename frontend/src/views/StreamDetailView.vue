@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { t } from "../i18n";
+import { placeName, t } from "../i18n";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 
@@ -146,7 +146,7 @@ onBeforeUnmount(() => {
           <span>
             {{ stream.venue_name
             }}<template v-if="stream.venue_city">
-              · {{ stream.venue_city }}</template
+              · {{ placeName(stream.venue_city) }}</template
             >
           </span>
         </div>

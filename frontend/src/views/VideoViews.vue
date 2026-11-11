@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { t } from "../i18n";
+import { placeName, t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 
@@ -124,7 +124,7 @@ onMounted(loadVideos);
             <p class="venue-info">
               {{ video.venue_name }}
               <span v-if="video.venue_city">
-                · {{ video.venue_city }}
+                · {{ placeName(video.venue_city) }}
               </span>
             </p>
           </div>

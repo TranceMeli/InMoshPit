@@ -62,6 +62,60 @@ export function setLocale(locale: Locale): void {
   }
 }
 
+/**
+ * Englische Namen für Orte und Länder, die in der Datenbank deutsch gepflegt
+ * sind. Unbekannte Namen werden unverändert angezeigt.
+ */
+const PLACE_NAMES_EN: Record<string, string> = {
+  // Städte
+  Wien: "Vienna",
+  München: "Munich",
+  Köln: "Cologne",
+  Nürnberg: "Nuremberg",
+  Zürich: "Zurich",
+  Prag: "Prague",
+  Warschau: "Warsaw",
+  Mailand: "Milan",
+  Rom: "Rome",
+  Lissabon: "Lisbon",
+  Kopenhagen: "Copenhagen",
+  Brüssel: "Brussels",
+  Genf: "Geneva",
+  Venedig: "Venice",
+  // Länder
+  Deutschland: "Germany",
+  Österreich: "Austria",
+  Schweiz: "Switzerland",
+  Niederlande: "Netherlands",
+  Frankreich: "France",
+  Italien: "Italy",
+  Spanien: "Spain",
+  Polen: "Poland",
+  Tschechien: "Czechia",
+  Ungarn: "Hungary",
+  Belgien: "Belgium",
+  Dänemark: "Denmark",
+  Schweden: "Sweden",
+  "Vereinigtes Königreich": "United Kingdom",
+};
+
+/** Ortsname in der aktuellen Sprache (Stadt oder Land). */
+export function placeName(value: string): string {
+  if (getLocale() !== "en") {
+    return value;
+  }
+
+  return PLACE_NAMES_EN[value.trim()] ?? value;
+}
+
+/**
+ * Uhrzeiten werden im Englischen mit Zeitzone angezeigt, weil Gäste aus
+ * anderen Ländern die Ortszeit der Veranstaltung sonst nicht einordnen können.
+ */
+export function timeZoneOptions(): Intl.DateTimeFormatOptions {
+  return getLocale() === "en" ? { timeZoneName: "short" } : {};
+}
+
 /** BCP-47-Tag für Intl-Formatierung (Datum, Uhrzeit). */
 export function intlLocale(): string {
   return getLocale() === "de" ? "de-DE" : "en-GB";

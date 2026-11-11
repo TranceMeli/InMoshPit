@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { t, intlLocale } from "../i18n";
+import { t, intlLocale, placeName } from "../i18n";
 import { computed, onMounted, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import { getEvents } from "../services/events";
@@ -165,7 +165,7 @@ onMounted(() => {
 
             <p class="event-location">
               <span aria-hidden="true">⌖</span>
-              {{ event.venue.name }}, {{ event.venue.city }}
+              {{ event.venue.name }}, {{ placeName(event.venue.city) }}
             </p>
 
             <div class="event-card-footer">
