@@ -1,29 +1,57 @@
-# Python
+# --- Secrets & local configuration (never commit) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+secrets.*
+credentials*.json
+.claude/
+
+# --- Python ---
 __pycache__/
 *.py[cod]
 *.pyo
 .venv/
 venv/
-.env
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
 
-# Django
+# --- Django: local data and uploads ---
 db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+*.sqlite
+*.db
 media/
 staticfiles/
 
-# Testing
+# --- Testing & coverage ---
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
+coverage/
 
-# Node
+# --- Node / Vite ---
 node_modules/
 dist/
+.vite/
+*.tsbuildinfo
 
-# IDE
+# --- Logs ---
+*.log
+
+# --- IDE ---
 .vscode/
 .idea/
 
-# Operating system
+# --- Operating system ---
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
