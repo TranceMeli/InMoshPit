@@ -1,0 +1,255 @@
+{
+  "nav": {
+    "main": "Main navigation",
+    "live": "Live",
+    "artists": "Artists",
+    "login": "Log in",
+    "register": "Sign up",
+    "events": "Events",
+    "videos": "Videos",
+    "language": "Language",
+    "languageDe": "German",
+    "languageEn": "English"
+  },
+  "common": {
+    "search": "Search",
+    "retry": "Try again",
+    "results": "{n} result | {n} results",
+    "emptyHint": "Try a different search term.",
+    "website": "Official website ↗",
+    "genres": "Genres",
+    "noGenres": "No genres listed",
+    "information": "Information",
+    "noBio": "No biography yet.",
+    "concert": "Concert",
+    "festival": "Festival"
+  },
+  "footer": {
+    "description": "Your place for live music, concert recordings and new musical discoveries.",
+    "discover": "Discover",
+    "information": "Information",
+    "imprint": "Legal notice",
+    "privacy": "Privacy policy",
+    "terms": "Terms of use",
+    "contact": "Contact",
+    "demoName": "InMoshPit – demo project",
+    "country": "Germany",
+    "demoNotice": "Fictional development address"
+  },
+  "legal": {
+    "impressum": {
+      "title": "Legal notice",
+      "description": "The provider information will be added here."
+    },
+    "datenschutz": {
+      "title": "Privacy policy",
+      "description": "The privacy notice will be completed before the public launch."
+    },
+    "kontakt": {
+      "title": "Contact",
+      "description": "Our contact options will be listed here."
+    },
+    "nutzungsbedingungen": {
+      "title": "Terms of use",
+      "description": "The terms of use for InMoshPit will be published here."
+    },
+    "fallback": {
+      "title": "Information",
+      "description": "This page is still under construction."
+    },
+    "notice": "This page is currently a development placeholder and not yet legally binding information."
+  },
+  "dashboard": {
+    "welcome": "Welcome to InMoshPit!",
+    "signedIn": "You are signed in.",
+    "logout": "Log out"
+  },
+  "auth": {
+    "username": "Username",
+    "password": "Password",
+    "login": {
+      "title": "Log in",
+      "submit": "Log in",
+      "submitting": "Signing in...",
+      "invalid": "Username or password is incorrect.",
+      "failed": "Sign-in failed. Please try again.",
+      "noAccount": "No account yet?"
+    },
+    "register": {
+      "tagline": "Become part of the live music community.",
+      "email": "Email address",
+      "passwordConfirm": "Repeat password",
+      "submit": "Sign up",
+      "submitting": "Creating account...",
+      "success": "Your account was created successfully.",
+      "failed": "Registration failed. Please try again.",
+      "hasAccount": "Already have an account?",
+      "signIn": "Log in now"
+    }
+  },
+  "artists": {
+    "title": "Discover artists",
+    "intro": "Discover artists and bands and find new music for your next concert experience.",
+    "searchPlaceholder": "Search artist or genre ...",
+    "searchLabel": "Search artists",
+    "all": "All artists",
+    "loading": "Loading artists ...",
+    "loadFailed": "The artists could not be loaded. Please try again.",
+    "emptyTitle": "No artists found",
+    "unknown": "Unknown artist",
+    "fallbackAlt": "Artist",
+    "detail": {
+      "loading": "Loading artist ...",
+      "notFoundTitle": "Artist not found",
+      "notFound": "The artist could not be found.",
+      "backToList": "Back to artist overview",
+      "about": "About {name}",
+      "noBioLong": "No biography has been added for this artist yet."
+    }
+  },
+  "bands": {
+    "title": "Discover bands",
+    "intro": "Get to know bands, meet their members and find your next favorite sound.",
+    "searchPlaceholder": "Search band, member or genre ...",
+    "searchLabel": "Search bands",
+    "all": "All bands",
+    "loading": "Loading bands ...",
+    "loadFailed": "The bands could not be loaded. Please try again.",
+    "emptyTitle": "No bands found",
+    "unknown": "Unknown band",
+    "fallbackAlt": "Band",
+    "members": "Members",
+    "unknownMember": "Unknown member",
+    "noMembers": "No members listed yet.",
+    "detail": {
+      "loading": "Loading band ...",
+      "notFoundTitle": "Band not found",
+      "notFound": "The band could not be found.",
+      "backToList": "Back to band overview",
+      "about": "About {name}",
+      "noBioLong": "No biography has been added for this band yet.",
+      "bandMembers": "Band members",
+      "memberCount": "{n} member | {n} members",
+      "memberRole": "Band member",
+      "since": "Member since {date}",
+      "noMembersLong": "No members have been added for this band yet."
+    }
+  },
+  "events": {
+    "heroText": "Discover concerts, festivals and unforgettable live performances.",
+    "title": "Events",
+    "count": "{n} event | {n} events",
+    "searchPlaceholder": "Search events ...",
+    "searchLabel": "Search events",
+    "typeLabel": "Select event type",
+    "typeAll": "All events",
+    "typeConcerts": "Concerts",
+    "typeFestivals": "Festivals",
+    "loading": "Loading events ...",
+    "loadFailed": "The events could not be loaded. Please try again later.",
+    "emptyTitle": "No events found",
+    "emptyHint": "Try a different search term or filter.",
+    "acts": "{n} act | {n} acts",
+    "viewDetails": "View details",
+    "detail": {
+      "loading": "Loading event ...",
+      "loadFailed": "The event could not be loaded.",
+      "backToList": "Back to events",
+      "backAll": "← All events",
+      "about": "About the event",
+      "noDescription": "No description has been added for this event yet.",
+      "lineup": "Acts & artists",
+      "unknownAct": "Unknown act",
+      "noLineup": "The line-up has not been published yet.",
+      "stages": "Stages",
+      "date": "Date",
+      "start": "Start",
+      "end": "End",
+      "venue": "Venue",
+      "venueWebsite": "Venue website →",
+      "timeUnknown": "Not yet known",
+      "clock": "{time}"
+    }
+  },
+  "videos": {
+    "heroTitle": "Experience live. Again and again.",
+    "heroText": "Discover concert recordings, legendary performances and new live moments from the world of music.",
+    "archive": "Concert archive",
+    "count": "{n} video | {n} videos",
+    "searchPlaceholder": "Search artist, concert or video ...",
+    "searchLabel": "Search concert videos",
+    "loading": "Loading concert videos ...",
+    "loadFailed": "The concert videos could not be loaded.",
+    "empty": "No concert videos found.",
+    "thumbnailAlt": "Thumbnail: {title}",
+    "unknownDuration": "Unknown length",
+    "detail": {
+      "loading": "Loading concert video ...",
+      "loadFailed": "The concert video could not be loaded.",
+      "unavailable": "VIDEO NOT AVAILABLE YET",
+      "like": "Like",
+      "liked": "You like this",
+      "loginToLike": "to like",
+      "login": "Log in",
+      "likeFailed": "Your like could not be saved.",
+      "aboutConcert": "About this concert",
+      "noDescription": "There is no description for this concert yet.",
+      "event": "Event",
+      "venue": "Venue",
+      "published": "Published",
+      "comments": "Comments",
+      "commentPlaceholder": "What do you think about this performance?",
+      "commentSubmit": "Comment",
+      "commentSubmitting": "Posting ...",
+      "commentFailed": "Your comment could not be posted.",
+      "loginToComment": "to write a comment.",
+      "loginLink": "Log in",
+      "noComments": "No comments yet. Be the first to write something!",
+      "discoverTitle": "Discover more live music",
+      "discoverText": "Find more performances and discover new artists.",
+      "allVideos": "View all videos",
+      "discoverArtists": "Discover artists"
+    }
+  },
+  "player": {
+    "noSource": "No playback source is available for this video.",
+    "streamFailed": "The stream could not be loaded.",
+    "unsupported": "Your browser does not support this video format.",
+    "error": "An error occurred during video playback.",
+    "loading": "Loading video ..."
+  },
+  "streams": {
+    "heroTitle": "Concerts & festivals live",
+    "heroText": "Experience performances in real time and watch the recording later.",
+    "loading": "Loading streams ...",
+    "loadFailed": "The streams could not be loaded.",
+    "empty": "No streams are currently scheduled.",
+    "groupLive": "Live now",
+    "groupUpcoming": "Coming up",
+    "groupPast": "Past streams",
+    "status": {
+      "scheduled": "Upcoming",
+      "live": "LIVE",
+      "ended": "Ended",
+      "cancelled": "Cancelled"
+    },
+    "thumbnailAlt": "Thumbnail: {title}",
+    "detail": {
+      "loading": "Loading stream ...",
+      "loadFailed": "The stream could not be loaded.",
+      "notFound": "Stream not found.",
+      "startsSoon": "The stream starts shortly ...",
+      "startsIn": "Starts in {time}",
+      "days": "{n} day | {n} days",
+      "hours": "{n} h",
+      "minutes": "{n} min",
+      "seconds": "{n} s",
+      "preparing": "Preparing stream ...",
+      "endedTitle": "This stream has ended",
+      "watchRecording": "Watch recording",
+      "noRecording": "The recording is not available yet.",
+      "cancelledTitle": "This stream was cancelled",
+      "allStreams": "All streams"
+    }
+  }
+}

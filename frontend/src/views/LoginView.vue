@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth";
@@ -22,9 +23,9 @@ async function handleLogin() {
     await router.push("/dashboard");
   } catch (error: any) {
     if (error.response?.status === 401) {
-      errorMessage.value = "Benutzername oder Passwort ist falsch.";
+      errorMessage.value = t('auth.login.invalid');
     } else {
-      errorMessage.value = "Anmeldung fehlgeschlagen. Bitte versuche es erneut.";
+      errorMessage.value = t('auth.login.failed');
     }
   } finally {
     isLoading.value = false;
@@ -36,11 +37,11 @@ async function handleLogin() {
   <main class="auth-container">
     <section class="auth-card">
       <h1>InMoshPit</h1>
-      <h2>Anmelden</h2>
+      <h2>{{ t('auth.login.title') }}</h2>
 
       <form @submit.prevent="handleLogin">
         <div class="form-group">
-          <label for="username">Benutzername</label>
+          <label for="username">{{ t('auth.username') }}</label>
           <input
             id="username"
             v-model="username"
@@ -51,7 +52,7 @@ async function handleLogin() {
         </div>
 
         <div class="form-group">
-          <label for="password">Passwort</label>
+          <label for="password">{{ t('auth.password') }}</label>
           <input
             id="password"
             v-model="password"
@@ -66,13 +67,13 @@ async function handleLogin() {
         </p>
 
         <button type="submit" :disabled="isLoading">
-          {{ isLoading ? "Anmeldung läuft..." : "Anmelden" }}
+          {{ isLoading ? t('auth.login.submitting') : t('auth.login.submit') }}
         </button>
       </form>
 
       <p class="auth-link">
-        Noch keinen Account?
-        <RouterLink to="/register">Registrieren</RouterLink>
+        {{ t('auth.login.noAccount') }}
+        <RouterLink to="/register">{{ t('auth.register.submit') }}</RouterLink>
       </p>
     </section>
   </main>

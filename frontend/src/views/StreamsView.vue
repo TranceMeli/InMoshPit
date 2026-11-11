@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { t } from "../i18n";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 
 import {
-  STATUS_LABELS,
+  statusLabel,
   formatStreamDate,
   getStreams,
   type Stream,
@@ -18,17 +19,17 @@ let refreshTimer: ReturnType<typeof setInterval> | undefined;
 const groups = computed(() => [
   {
     key: "live",
-    title: "Jetzt live",
+    title: t("streams.groupLive"),
     items: streams.value.filter((s) => s.status === "live"),
   },
   {
     key: "scheduled",
-    title: "Demnächst",
+    title: t("streams.groupUpcoming"),
     items: streams.value.filter((s) => s.status === "scheduled"),
   },
   {
     key: "ended",
-    title: "Vergangene Streams",
+    title: t("streams.groupPast"),
     items: streams.value
       .filter((s) => s.status === "ended")
       .sort((a, b) => b.scheduled_at.localeCompare(a.scheduled_at)),
@@ -45,7 +46,7 @@ async function loadStreams(silent = false) {
     streams.value = await getStreams();
   } catch {
     if (!silent) {
-      error.value = "Die Streams konnten nicht geladen werden.";
+      error.value = t('streams.loadFailed');
     }
   } finally {
     loading.value = false;
@@ -64,18 +65,15 @@ onBeforeUnmount(() => clearInterval(refreshTimer));
   <main class="streams-page">
     <section class="streams-hero">
       <span class="eyebrow">LIVE FROM THE PIT</span>
-      <h1>Konzerte &amp; Festivals live</h1>
-      <p>
-        Erlebe Auftritte in Echtzeit und schau sie dir später als
-        Aufzeichnung an.
-      </p>
+      <h1>{{ t('streams.heroTitle') }}</h1>
+      <p>{{ t('streams.heroText') }}</p>
     </section>
 
     <div class="streams-content">
-      <p v-if="loading" class="state-message">Streams werden geladen ...</p>
+      <p v-if="loading" class="state-message">{{ t('streams.loading') }}</p>
       <p v-else-if="error" class="state-message error">{{ error }}</p>
       <p v-else-if="streams.length === 0" class="state-message">
-        Aktuell sind keine Streams geplant.
+        {{ t('streams.empty') }}
       </p>
 
       <template v-else>
@@ -98,13 +96,13 @@ onBeforeUnmount(() => clearInterval(refreshTimer));
                 <img
                   v-if="stream.thumbnail"
                   :src="stream.thumbnail"
-                  :alt="`Vorschaubild: ${stream.title}`"
+                  :alt="t('streams.thumbnailAlt', { title: stream.title })"
                   loading="lazy"
                 />
                 <span v-else class="thumb-placeholder">IN MOSH PIT</span>
                 <span class="status-badge" :class="stream.status">
                   <span v-if="stream.status === 'live'" class="dot" />
-                  {{ STATUS_LABELS[stream.status] }}
+                  {{ statusLabel(stream.status) }}
                 </span>
               </div>
 

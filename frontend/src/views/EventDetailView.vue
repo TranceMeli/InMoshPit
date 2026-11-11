@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t, intlLocale } from "../i18n";
 import { onMounted, ref } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 import { getEvent } from "../services/events";
@@ -12,7 +13,7 @@ const isLoading = ref(true);
 const errorMessage = ref("");
 
 function formatDate(value: string): string {
-  return new Intl.DateTimeFormat("de-DE", {
+  return new Intl.DateTimeFormat(intlLocale(), {
     weekday: "long",
     day: "2-digit",
     month: "long",
@@ -21,9 +22,9 @@ function formatDate(value: string): string {
 }
 
 function formatTime(value: string | null): string {
-  if (!value) return "Noch nicht bekannt";
+  if (!value) return t('events.detail.timeUnknown');
 
-  return new Intl.DateTimeFormat("de-DE", {
+  return new Intl.DateTimeFormat(intlLocale(), {
     hour: "2-digit",
     minute: "2-digit",
   }).format(new Date(value));
@@ -36,8 +37,7 @@ async function loadEvent(): Promise<void> {
   try {
     event.value = await getEvent(String(route.params.slug));
   } catch {
-    errorMessage.value =
-      "Die Veranstaltung konnte nicht geladen werden.";
+    errorMessage.value = t('events.detail.loadFailed');
   } finally {
     isLoading.value = false;
   }
@@ -49,16 +49,16 @@ onMounted(loadEvent);
 <template>
   <main class="event-detail-page">
     <div v-if="isLoading" class="state-message">
-      Veranstaltung wird geladen ...
+      {{ t('events.detail.loading') }}
     </div>
 
     <div v-else-if="errorMessage" class="state-message error">
       {{ errorMessage }}
       <button class="back-button" @click="loadEvent">
-        Erneut versuchen
+        {{ t('common.retry') }}
       </button>
       <RouterLink to="/events" class="back-link">
-        Zurück zu den Veranstaltungen
+        {{ t('events.detail.backToList') }}
       </RouterLink>
     </div>
 
@@ -79,11 +79,11 @@ onMounted(loadEvent);
 
         <div class="hero-content">
           <RouterLink to="/events" class="back-link">
-            ← Alle Veranstaltungen
+            {{ t('events.detail.backAll') }}
           </RouterLink>
 
           <span class="event-type">
-            {{ event.event_type === "festival" ? "Festival" : "Konzert" }}
+            {{ event.event_type === 'festival' ? t('common.festival') : t('common.concert') }}
           </span>
 
           <h1>{{ event.title }}</h1>
@@ -98,19 +98,19 @@ onMounted(loadEvent);
         <section class="event-main">
           <div class="event-section">
             <span class="eyebrow">ABOUT THE EVENT</span>
-            <h2>Über die Veranstaltung</h2>
+            <h2>{{ t('events.detail.about') }}</h2>
 
             <p v-if="event.description" class="description">
               {{ event.description }}
             </p>
             <p v-else class="muted">
-              Für diese Veranstaltung wurde noch keine Beschreibung hinterlegt.
+              {{ t('events.detail.noDescription') }}
             </p>
           </div>
 
           <div class="event-section">
             <span class="eyebrow">LINE-UP</span>
-            <h2>Acts & Künstler</h2>
+            <h2>{{ t('events.detail.lineup') }}</h2>
 
             <div v-if="event.lineup?.length" class="lineup-list">
               <article
@@ -140,7 +140,7 @@ onMounted(loadEvent);
                   </RouterLink>
 
                   <span v-else class="performer-name">
-                    {{ entry.artist_name || entry.band_name || "Unbekannter Act" }}
+                    {{ entry.artist_name || entry.band_name || t('events.detail.unknownAct') }}
                   </span>
 
                   <span v-if="entry.stage_name" class="performer-stage">
@@ -155,7 +155,7 @@ onMounted(loadEvent);
             </div>
 
             <p v-else class="muted">
-              Das Line-up wurde noch nicht veröffentlicht.
+              {{ t('events.detail.noLineup') }}
             </p>
           </div>
 
@@ -164,7 +164,7 @@ onMounted(loadEvent);
             class="event-section"
           >
             <span class="eyebrow">VENUES & STAGES</span>
-            <h2>Bühnen</h2>
+            <h2>{{ t('events.detail.stages') }}</h2>
 
             <div class="stages-grid">
               <article
@@ -186,22 +186,22 @@ onMounted(loadEvent);
             <span class="eyebrow">EVENT INFORMATION</span>
 
             <div class="info-item">
-              <span class="info-label">Datum</span>
+              <span class="info-label">{{ t('events.detail.date') }}</span>
               <strong>{{ formatDate(event.start_at) }}</strong>
             </div>
 
             <div class="info-item">
-              <span class="info-label">Beginn</span>
-              <strong>{{ formatTime(event.start_at) }} Uhr</strong>
+              <span class="info-label">{{ t('events.detail.start') }}</span>
+              <strong>{{ t('events.detail.clock', { time: formatTime(event.start_at) }) }}</strong>
             </div>
 
             <div v-if="event.end_at" class="info-item">
-              <span class="info-label">Ende</span>
-              <strong>{{ formatTime(event.end_at) }} Uhr</strong>
+              <span class="info-label">{{ t('events.detail.end') }}</span>
+              <strong>{{ t('events.detail.clock', { time: formatTime(event.end_at) }) }}</strong>
             </div>
 
             <div class="info-item">
-              <span class="info-label">Veranstaltungsort</span>
+              <span class="info-label">{{ t('events.detail.venue') }}</span>
               <strong>{{ event.venue.name }}</strong>
               <span>{{ event.venue.address }}</span>
               <span>
@@ -218,7 +218,7 @@ onMounted(loadEvent);
               rel="noopener noreferrer"
               class="venue-link"
             >
-              Website des Veranstaltungsorts →
+              {{ t('events.detail.venueWebsite') }}
             </a>
           </section>
         </aside>

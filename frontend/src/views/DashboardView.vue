@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
@@ -14,11 +15,11 @@ function handleLogout() {
 
 <template>
   <main>
-    <h1>Willkommen bei InMoshPit!</h1>
-    <p>Du bist angemeldet.</p>
+    <h1>{{ t('dashboard.welcome') }}</h1>
+    <p>{{ t('dashboard.signedIn') }}</p>
 
     <button @click="handleLogout">
-      Abmelden
+      {{ t('dashboard.logout') }}
     </button>
   </main>
 </template>

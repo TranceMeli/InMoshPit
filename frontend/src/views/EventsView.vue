@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t, intlLocale } from "../i18n";
 import { computed, onMounted, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
 import { getEvents } from "../services/events";
@@ -16,7 +17,7 @@ let searchTimeout: ReturnType<typeof setTimeout> | undefined;
 const filteredEvents = computed(() => events.value);
 
 function formatDate(value: string): string {
-  return new Intl.DateTimeFormat("de-DE", {
+  return new Intl.DateTimeFormat(intlLocale(), {
     weekday: "short",
     day: "2-digit",
     month: "long",
@@ -37,8 +38,7 @@ async function loadEvents(): Promise<void> {
       ordering: "start_at",
     });
   } catch {
-    errorMessage.value =
-      "Die Veranstaltungen konnten nicht geladen werden. Bitte versuche es später erneut.";
+    errorMessage.value = t('events.loadFailed');
   } finally {
     isLoading.value = false;
   }
@@ -70,7 +70,7 @@ onMounted(() => {
         <span class="eyebrow">DISCOVER LIVE MUSIC</span>
         <h1>Find your next <span>live moment.</span></h1>
         <p>
-          Entdecke Konzerte, Festivals und unvergessliche Live-Auftritte.
+          {{ t('events.heroText') }}
         </p>
       </div>
     </section>
@@ -79,12 +79,11 @@ onMounted(() => {
       <div class="section-heading">
         <div>
           <span class="eyebrow">EXPLORE</span>
-          <h2>Veranstaltungen</h2>
+          <h2>{{ t('events.title') }}</h2>
         </div>
 
         <span class="event-count">
-          {{ filteredEvents.length }}
-          {{ filteredEvents.length === 1 ? "Event" : "Events" }}
+          {{ t('events.count', filteredEvents.length) }}
         </span>
       </div>
 
@@ -94,36 +93,36 @@ onMounted(() => {
           <input
             v-model="search"
             type="search"
-            placeholder="Nach Veranstaltungen suchen ..."
-            aria-label="Veranstaltungen suchen"
+            :placeholder="t('events.searchPlaceholder')"
+            :aria-label="t('events.searchLabel')"
             @input="handleSearch"
           />
         </div>
 
         <select
           v-model="eventType"
-          aria-label="Veranstaltungstyp auswählen"
+          :aria-label="t('events.typeLabel')"
         >
-          <option value="">Alle Veranstaltungen</option>
-          <option value="concert">Konzerte</option>
-          <option value="festival">Festivals</option>
+          <option value="">{{ t('events.typeAll') }}</option>
+          <option value="concert">{{ t('events.typeConcerts') }}</option>
+          <option value="festival">{{ t('events.typeFestivals') }}</option>
         </select>
       </div>
 
       <div v-if="isLoading" class="state-message">
-        Veranstaltungen werden geladen ...
+        {{ t('events.loading') }}
       </div>
 
       <div v-else-if="errorMessage" class="state-message error">
         {{ errorMessage }}
         <button class="retry-button" @click="loadEvents">
-          Erneut versuchen
+          {{ t('common.retry') }}
         </button>
       </div>
 
       <div v-else-if="events.length === 0" class="state-message empty">
-        <h3>Keine Veranstaltungen gefunden</h3>
-        <p>Versuche einen anderen Suchbegriff oder Filter.</p>
+        <h3>{{ t('events.emptyTitle') }}</h3>
+        <p>{{ t('events.emptyHint') }}</p>
       </div>
 
       <div v-else class="events-grid">
@@ -148,7 +147,7 @@ onMounted(() => {
             </div>
 
             <span class="event-type">
-              {{ event.event_type === "festival" ? "Festival" : "Konzert" }}
+              {{ event.event_type === 'festival' ? t('common.festival') : t('common.concert') }}
             </span>
           </RouterLink>
 
@@ -171,19 +170,14 @@ onMounted(() => {
 
             <div class="event-card-footer">
               <span>
-                {{ event.lineup_count ?? event.lineup?.length ?? 0 }}
-                {{
-                  (event.lineup_count ?? event.lineup?.length ?? 0) === 1
-                    ? "Act"
-                    : "Acts"
-                }}
+                {{ t('events.acts', event.lineup_count ?? event.lineup?.length ?? 0) }}
               </span>
 
               <RouterLink
                 :to="`/events/${event.slug}`"
                 class="details-link"
               >
-                Details ansehen <span aria-hidden="true">→</span>
+                {{ t('events.viewDetails') }} <span aria-hidden="true">→</span>
               </RouterLink>
             </div>
           </div>

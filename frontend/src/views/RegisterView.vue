@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { api } from "../services/api";
@@ -28,8 +29,7 @@ async function register() {
       password_confirm: passwordConfirm.value,
     });
 
-    successMessage.value =
-      "Dein Account wurde erfolgreich erstellt.";
+    successMessage.value = t('auth.register.success');
 
     username.value = "";
     email.value = "";
@@ -51,8 +51,7 @@ async function register() {
         })
         .join("\n");
     } else {
-      errorMessage.value =
-        "Die Registrierung ist fehlgeschlagen. Bitte versuche es erneut.";
+      errorMessage.value = t('auth.register.failed');
     }
   } finally {
     loading.value = false;
@@ -65,12 +64,12 @@ async function register() {
     <section class="auth-card">
       <header class="auth-header">
         <h1>InMoshPit</h1>
-        <p>Werde Teil der Live-Musik-Community.</p>
+        <p>{{ t('auth.register.tagline') }}</p>
       </header>
 
       <form @submit.prevent="register">
         <div class="form-group">
-          <label for="username">Benutzername</label>
+          <label for="username">{{ t('auth.username') }}</label>
           <input
             id="username"
             v-model="username"
@@ -81,7 +80,7 @@ async function register() {
         </div>
 
         <div class="form-group">
-          <label for="email">E-Mail-Adresse</label>
+          <label for="email">{{ t('auth.register.email') }}</label>
           <input
             id="email"
             v-model="email"
@@ -92,7 +91,7 @@ async function register() {
         </div>
 
         <div class="form-group">
-          <label for="password">Passwort</label>
+          <label for="password">{{ t('auth.password') }}</label>
           <input
             id="password"
             v-model="password"
@@ -105,7 +104,7 @@ async function register() {
 
         <div class="form-group">
           <label for="password-confirm">
-            Passwort wiederholen
+            {{ t('auth.register.passwordConfirm') }}
           </label>
           <input
             id="password-confirm"
@@ -126,13 +125,13 @@ async function register() {
         </p>
 
         <button type="submit" :disabled="loading">
-          {{ loading ? "Account wird erstellt..." : "Registrieren" }}
+          {{ loading ? t('auth.register.submitting') : t('auth.register.submit') }}
         </button>
       </form>
 
       <footer>
-        Du hast bereits einen Account?
-        <RouterLink to="/login">Jetzt anmelden</RouterLink>
+        {{ t('auth.register.hasAccount') }}
+        <RouterLink to="/login">{{ t('auth.register.signIn') }}</RouterLink>
       </footer>
     </section>
   </main>

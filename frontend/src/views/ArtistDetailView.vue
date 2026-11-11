@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { getArtist, type Artist } from "../services/artists";
@@ -18,8 +19,7 @@ async function loadArtist() {
     const slug = String(route.params.slug);
     artist.value = await getArtist(slug);
   } catch {
-    errorMessage.value =
-      "Der Artist konnte nicht gefunden werden.";
+    errorMessage.value = t('artists.detail.notFound');
   } finally {
     loading.value = false;
   }
@@ -31,21 +31,21 @@ onMounted(loadArtist);
 <template>
   <main class="detail-page">
     <div v-if="loading" class="state-message">
-      Artist wird geladen ...
+      {{ t('artists.detail.loading') }}
     </div>
 
     <div v-else-if="errorMessage" class="state-message error">
-      <h1>Artist nicht gefunden</h1>
+      <h1>{{ t('artists.detail.notFoundTitle') }}</h1>
       <p>{{ errorMessage }}</p>
       <RouterLink to="/artists" class="back-link">
-        Zurück zur Artist-Übersicht
+        {{ t('artists.detail.backToList') }}
       </RouterLink>
     </div>
 
     <template v-else-if="artist">
       <RouterLink to="/artists" class="back-link">
         <span aria-hidden="true">←</span>
-        Alle Artists
+        {{ t('artists.all') }}
       </RouterLink>
 
       <section class="profile-header">
@@ -81,31 +81,31 @@ onMounted(loadArtist);
             rel="noopener noreferrer"
             class="website-link"
           >
-            Offizielle Website ↗
+            {{ t('common.website') }}
           </a>
         </div>
       </section>
 
       <section class="profile-section">
-        <h2>Über {{ artist.name }}</h2>
+        <h2>{{ t('artists.detail.about', { name: artist.name }) }}</h2>
 
         <p v-if="artist.bio" class="biography">
           {{ artist.bio }}
         </p>
         <p v-else class="muted">
-          Für diesen Artist wurde noch keine Biografie hinterlegt.
+          {{ t('artists.detail.noBioLong') }}
         </p>
       </section>
 
       <section class="profile-section">
-        <h2>Informationen</h2>
+        <h2>{{ t('common.information') }}</h2>
 
         <div class="info-card">
-          <span class="info-label">Genres</span>
+          <span class="info-label">{{ t('common.genres') }}</span>
           <span v-if="artist.genres.length">
             {{ artist.genres.map((genre) => genre.name).join(", ") }}
           </span>
-          <span v-else class="muted">Keine Genres hinterlegt</span>
+          <span v-else class="muted">{{ t('common.noGenres') }}</span>
         </div>
       </section>
     </template>

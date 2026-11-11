@@ -1,0 +1,255 @@
+{
+  "nav": {
+    "main": "Hauptnavigation",
+    "live": "Live",
+    "artists": "Artists",
+    "login": "Login",
+    "register": "Registrieren",
+    "events": "Events",
+    "videos": "Videos",
+    "language": "Sprache",
+    "languageDe": "Deutsch",
+    "languageEn": "Englisch"
+  },
+  "common": {
+    "search": "Suchen",
+    "retry": "Erneut versuchen",
+    "results": "{n} Ergebnis | {n} Ergebnisse",
+    "emptyHint": "Versuche einen anderen Suchbegriff.",
+    "website": "Offizielle Website ↗",
+    "genres": "Genres",
+    "noGenres": "Keine Genres hinterlegt",
+    "information": "Informationen",
+    "noBio": "Noch keine Biografie vorhanden.",
+    "concert": "Konzert",
+    "festival": "Festival"
+  },
+  "footer": {
+    "description": "Dein Platz für Live-Musik, Konzertaufnahmen und neue musikalische Entdeckungen.",
+    "discover": "Entdecken",
+    "information": "Informationen",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "contact": "Kontakt",
+    "demoName": "InMoshPit – Demo-Projekt",
+    "country": "Deutschland",
+    "demoNotice": "Fiktive Entwicklungsanschrift"
+  },
+  "legal": {
+    "impressum": {
+      "title": "Impressum",
+      "description": "Die Anbieterinformationen werden hier ergänzt."
+    },
+    "datenschutz": {
+      "title": "Datenschutzerklärung",
+      "description": "Die Datenschutzhinweise werden vor dem öffentlichen Betrieb vollständig ergänzt."
+    },
+    "kontakt": {
+      "title": "Kontakt",
+      "description": "Hier findest du künftig unsere Kontaktmöglichkeiten."
+    },
+    "nutzungsbedingungen": {
+      "title": "Nutzungsbedingungen",
+      "description": "Die Nutzungsbedingungen für InMoshPit werden hier veröffentlicht."
+    },
+    "fallback": {
+      "title": "Informationen",
+      "description": "Diese Seite befindet sich noch im Aufbau."
+    },
+    "notice": "Diese Seite ist aktuell ein Entwicklungsplatzhalter und noch keine rechtsverbindliche Information."
+  },
+  "dashboard": {
+    "welcome": "Willkommen bei InMoshPit!",
+    "signedIn": "Du bist angemeldet.",
+    "logout": "Abmelden"
+  },
+  "auth": {
+    "username": "Benutzername",
+    "password": "Passwort",
+    "login": {
+      "title": "Anmelden",
+      "submit": "Anmelden",
+      "submitting": "Anmeldung läuft...",
+      "invalid": "Benutzername oder Passwort ist falsch.",
+      "failed": "Anmeldung fehlgeschlagen. Bitte versuche es erneut.",
+      "noAccount": "Noch keinen Account?"
+    },
+    "register": {
+      "tagline": "Werde Teil der Live-Musik-Community.",
+      "email": "E-Mail-Adresse",
+      "passwordConfirm": "Passwort wiederholen",
+      "submit": "Registrieren",
+      "submitting": "Account wird erstellt...",
+      "success": "Dein Account wurde erfolgreich erstellt.",
+      "failed": "Die Registrierung ist fehlgeschlagen. Bitte versuche es erneut.",
+      "hasAccount": "Du hast bereits einen Account?",
+      "signIn": "Jetzt anmelden"
+    }
+  },
+  "artists": {
+    "title": "Artists entdecken",
+    "intro": "Entdecke Artists und Bands und finde neue Musik für dein nächstes Konzerterlebnis.",
+    "searchPlaceholder": "Artist oder Genre suchen ...",
+    "searchLabel": "Artists suchen",
+    "all": "Alle Artists",
+    "loading": "Artists werden geladen ...",
+    "loadFailed": "Die Artists konnten nicht geladen werden. Bitte versuche es erneut.",
+    "emptyTitle": "Keine Artists gefunden",
+    "unknown": "Unbekannter Artist",
+    "fallbackAlt": "Artist",
+    "detail": {
+      "loading": "Artist wird geladen ...",
+      "notFoundTitle": "Artist nicht gefunden",
+      "notFound": "Der Artist konnte nicht gefunden werden.",
+      "backToList": "Zurück zur Artist-Übersicht",
+      "about": "Über {name}",
+      "noBioLong": "Für diesen Artist wurde noch keine Biografie hinterlegt."
+    }
+  },
+  "bands": {
+    "title": "Bands entdecken",
+    "intro": "Lerne Bands kennen, entdecke ihre Mitglieder und finde deinen nächsten Lieblingssound.",
+    "searchPlaceholder": "Band, Mitglied oder Genre suchen ...",
+    "searchLabel": "Bands suchen",
+    "all": "Alle Bands",
+    "loading": "Bands werden geladen ...",
+    "loadFailed": "Die Bands konnten nicht geladen werden. Bitte versuche es erneut.",
+    "emptyTitle": "Keine Bands gefunden",
+    "unknown": "Unbekannte Band",
+    "fallbackAlt": "Band",
+    "members": "Mitglieder",
+    "unknownMember": "Unbekanntes Mitglied",
+    "noMembers": "Noch keine Mitglieder eingetragen.",
+    "detail": {
+      "loading": "Band wird geladen ...",
+      "notFoundTitle": "Band nicht gefunden",
+      "notFound": "Die Band konnte nicht gefunden werden.",
+      "backToList": "Zurück zur Band-Übersicht",
+      "about": "Über {name}",
+      "noBioLong": "Für diese Band wurde noch keine Biografie hinterlegt.",
+      "bandMembers": "Bandmitglieder",
+      "memberCount": "{n} Mitglied | {n} Mitglieder",
+      "memberRole": "Bandmitglied",
+      "since": "Dabei seit {date}",
+      "noMembersLong": "Für diese Band wurden noch keine Mitglieder eingetragen."
+    }
+  },
+  "events": {
+    "heroText": "Entdecke Konzerte, Festivals und unvergessliche Live-Auftritte.",
+    "title": "Veranstaltungen",
+    "count": "{n} Event | {n} Events",
+    "searchPlaceholder": "Nach Veranstaltungen suchen ...",
+    "searchLabel": "Veranstaltungen suchen",
+    "typeLabel": "Veranstaltungstyp auswählen",
+    "typeAll": "Alle Veranstaltungen",
+    "typeConcerts": "Konzerte",
+    "typeFestivals": "Festivals",
+    "loading": "Veranstaltungen werden geladen ...",
+    "loadFailed": "Die Veranstaltungen konnten nicht geladen werden. Bitte versuche es später erneut.",
+    "emptyTitle": "Keine Veranstaltungen gefunden",
+    "emptyHint": "Versuche einen anderen Suchbegriff oder Filter.",
+    "acts": "{n} Act | {n} Acts",
+    "viewDetails": "Details ansehen",
+    "detail": {
+      "loading": "Veranstaltung wird geladen ...",
+      "loadFailed": "Die Veranstaltung konnte nicht geladen werden.",
+      "backToList": "Zurück zu den Veranstaltungen",
+      "backAll": "← Alle Veranstaltungen",
+      "about": "Über die Veranstaltung",
+      "noDescription": "Für diese Veranstaltung wurde noch keine Beschreibung hinterlegt.",
+      "lineup": "Acts & Künstler",
+      "unknownAct": "Unbekannter Act",
+      "noLineup": "Das Line-up wurde noch nicht veröffentlicht.",
+      "stages": "Bühnen",
+      "date": "Datum",
+      "start": "Beginn",
+      "end": "Ende",
+      "venue": "Veranstaltungsort",
+      "venueWebsite": "Website des Veranstaltungsorts →",
+      "timeUnknown": "Noch nicht bekannt",
+      "clock": "{time} Uhr"
+    }
+  },
+  "videos": {
+    "heroTitle": "Live erleben. Immer wieder.",
+    "heroText": "Entdecke Konzertmitschnitte, legendäre Auftritte und neue Live-Momente aus der Welt der Musik.",
+    "archive": "Konzertarchiv",
+    "count": "{n} Video | {n} Videos",
+    "searchPlaceholder": "Künstler, Konzert oder Video suchen ...",
+    "searchLabel": "Konzertvideos suchen",
+    "loading": "Konzertvideos werden geladen ...",
+    "loadFailed": "Die Konzertvideos konnten nicht geladen werden.",
+    "empty": "Keine Konzertvideos gefunden.",
+    "thumbnailAlt": "Vorschaubild: {title}",
+    "unknownDuration": "Unbekannte Länge",
+    "detail": {
+      "loading": "Konzertvideo wird geladen ...",
+      "loadFailed": "Das Konzertvideo konnte nicht geladen werden.",
+      "unavailable": "VIDEO NOCH NICHT VERFÜGBAR",
+      "like": "Gefällt mir",
+      "liked": "Gefällt dir",
+      "loginToLike": "zum Liken",
+      "login": "Anmelden",
+      "likeFailed": "Deine Like-Aktion konnte nicht gespeichert werden.",
+      "aboutConcert": "Über dieses Konzert",
+      "noDescription": "Für dieses Konzert gibt es noch keine Beschreibung.",
+      "event": "Event",
+      "venue": "Veranstaltungsort",
+      "published": "Veröffentlicht",
+      "comments": "Kommentare",
+      "commentPlaceholder": "Was denkst du über diesen Auftritt?",
+      "commentSubmit": "Kommentieren",
+      "commentSubmitting": "Wird veröffentlicht ...",
+      "commentFailed": "Dein Kommentar konnte nicht veröffentlicht werden.",
+      "loginToComment": "um einen Kommentar zu schreiben.",
+      "loginLink": "Melde dich an",
+      "noComments": "Noch keine Kommentare. Sei die erste Person, die etwas schreibt!",
+      "discoverTitle": "Mehr Live-Musik entdecken",
+      "discoverText": "Finde weitere Auftritte und entdecke neue Künstler.",
+      "allVideos": "Alle Videos ansehen",
+      "discoverArtists": "Künstler entdecken"
+    }
+  },
+  "player": {
+    "noSource": "Für dieses Video ist keine Wiedergabequelle verfügbar.",
+    "streamFailed": "Der Stream konnte nicht geladen werden.",
+    "unsupported": "Dein Browser unterstützt dieses Videoformat leider nicht.",
+    "error": "Bei der Videowiedergabe ist ein Fehler aufgetreten.",
+    "loading": "Video wird geladen ..."
+  },
+  "streams": {
+    "heroTitle": "Konzerte & Festivals live",
+    "heroText": "Erlebe Auftritte in Echtzeit und schau sie dir später als Aufzeichnung an.",
+    "loading": "Streams werden geladen ...",
+    "loadFailed": "Die Streams konnten nicht geladen werden.",
+    "empty": "Aktuell sind keine Streams geplant.",
+    "groupLive": "Jetzt live",
+    "groupUpcoming": "Demnächst",
+    "groupPast": "Vergangene Streams",
+    "status": {
+      "scheduled": "Demnächst",
+      "live": "LIVE",
+      "ended": "Beendet",
+      "cancelled": "Abgesagt"
+    },
+    "thumbnailAlt": "Vorschaubild: {title}",
+    "detail": {
+      "loading": "Stream wird geladen ...",
+      "loadFailed": "Der Stream konnte nicht geladen werden.",
+      "notFound": "Stream nicht gefunden.",
+      "startsSoon": "Der Stream startet gleich ...",
+      "startsIn": "Startet in {time}",
+      "days": "{n} Tag | {n} Tage",
+      "hours": "{n} Std",
+      "minutes": "{n} Min",
+      "seconds": "{n} Sek",
+      "preparing": "Stream wird vorbereitet ...",
+      "endedTitle": "Dieser Stream ist beendet",
+      "watchRecording": "Aufzeichnung ansehen",
+      "noRecording": "Die Aufzeichnung ist noch nicht verfügbar.",
+      "cancelledTitle": "Dieser Stream wurde abgesagt",
+      "allStreams": "Alle Streams"
+    }
+  }
+}

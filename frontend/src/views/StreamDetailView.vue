@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { t } from "../i18n";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 
 import VideoPlayer from "../components/VideoPlayer.vue";
 import {
-  STATUS_LABELS,
+  statusLabel,
   formatStreamDate,
   getStream,
   type Stream,
@@ -29,7 +30,7 @@ const countdown = computed(() => {
   const diff = new Date(stream.value.scheduled_at).getTime() - now.value;
 
   if (diff <= 0) {
-    return "Der Stream startet gleich ...";
+    return t('streams.detail.startsSoon');
   }
 
   const totalSeconds = Math.floor(diff / 1000);
@@ -39,13 +40,13 @@ const countdown = computed(() => {
   const seconds = totalSeconds % 60;
 
   const parts = [
-    days > 0 ? `${days} Tage` : "",
-    `${hours} Std`,
-    `${minutes} Min`,
-    days === 0 ? `${seconds} Sek` : "",
+    days > 0 ? t("streams.detail.days", days) : "",
+    t("streams.detail.hours", hours),
+    t("streams.detail.minutes", minutes),
+    days === 0 ? t("streams.detail.seconds", seconds) : "",
   ].filter(Boolean);
 
-  return `Startet in ${parts.join(" ")}`;
+  return t("streams.detail.startsIn", { time: parts.join(" ") });
 });
 
 async function loadStream(silent = false) {
@@ -58,7 +59,7 @@ async function loadStream(silent = false) {
     error.value = "";
   } catch {
     if (!silent) {
-      error.value = "Der Stream konnte nicht geladen werden.";
+      error.value = t('streams.detail.loadFailed');
     }
   } finally {
     loading.value = false;
@@ -89,9 +90,9 @@ onBeforeUnmount(() => {
 
 <template>
   <main class="stream-page">
-    <div v-if="loading" class="page-state">Stream wird geladen ...</div>
+    <div v-if="loading" class="page-state">{{ t('streams.detail.loading') }}</div>
     <div v-else-if="error || !stream" class="page-state error">
-      {{ error || "Stream nicht gefunden." }}
+      {{ error || t('streams.detail.notFound') }}
     </div>
 
     <div v-else class="stream-layout">
@@ -109,30 +110,30 @@ onBeforeUnmount(() => {
         </template>
 
         <template v-else-if="stream.status === 'live'">
-          <span class="placeholder-title">Stream wird vorbereitet ...</span>
+          <span class="placeholder-title">{{ t('streams.detail.preparing') }}</span>
         </template>
 
         <template v-else-if="stream.status === 'ended'">
-          <span class="placeholder-title">Dieser Stream ist beendet</span>
+          <span class="placeholder-title">{{ t('streams.detail.endedTitle') }}</span>
           <RouterLink
             v-if="stream.recording_slug"
             :to="`/videos/${stream.recording_slug}`"
             class="recording-link"
           >
-            Aufzeichnung ansehen
+            {{ t('streams.detail.watchRecording') }}
           </RouterLink>
-          <span v-else>Die Aufzeichnung ist noch nicht verfügbar.</span>
+          <span v-else>{{ t('streams.detail.noRecording') }}</span>
         </template>
 
         <template v-else>
-          <span class="placeholder-title">Dieser Stream wurde abgesagt</span>
+          <span class="placeholder-title">{{ t('streams.detail.cancelledTitle') }}</span>
         </template>
       </div>
 
       <div class="stream-info">
         <span class="status-badge" :class="stream.status">
           <span v-if="stream.status === 'live'" class="dot" />
-          {{ STATUS_LABELS[stream.status] }}
+          {{ statusLabel(stream.status) }}
         </span>
 
         <h1>{{ stream.title }}</h1>
@@ -154,7 +155,7 @@ onBeforeUnmount(() => {
           {{ stream.description }}
         </p>
 
-        <RouterLink to="/streams" class="back-link">Alle Streams</RouterLink>
+        <RouterLink to="/streams" class="back-link">{{ t('streams.detail.allStreams') }}</RouterLink>
       </div>
     </div>
   </main>

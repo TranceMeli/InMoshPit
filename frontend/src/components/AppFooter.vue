@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 const currentYear = new Date().getFullYear();
 </script>
 
@@ -16,34 +17,33 @@ const currentYear = new Date().getFullYear();
         </p>
 
         <p class="footer-description">
-          Dein Platz für Live-Musik, Konzertaufnahmen und neue musikalische
-          Entdeckungen.
+          {{ t('footer.description') }}
         </p>
       </section>
 
       <section class="footer-column">
-        <h2>Entdecken</h2>
+        <h2>{{ t('footer.discover') }}</h2>
         <RouterLink to="/artists">Artists</RouterLink>
         <RouterLink to="/bands">Bands</RouterLink>
       </section>
 
       <section class="footer-column">
-        <h2>Informationen</h2>
-        <RouterLink to="/impressum">Impressum</RouterLink>
-        <RouterLink to="/datenschutz">Datenschutz</RouterLink>
+        <h2>{{ t('footer.information') }}</h2>
+        <RouterLink to="/impressum">{{ t('footer.imprint') }}</RouterLink>
+        <RouterLink to="/datenschutz">{{ t('footer.privacy') }}</RouterLink>
         <RouterLink to="/nutzungsbedingungen">
-          Nutzungsbedingungen
+          {{ t('footer.terms') }}
         </RouterLink>
-        <RouterLink to="/kontakt">Kontakt</RouterLink>
+        <RouterLink to="/kontakt">{{ t('footer.contact') }}</RouterLink>
       </section>
 
       <section class="footer-column footer-address">
-        <h2>Kontakt</h2>
-        <p>InMoshPit – Demo-Projekt</p>
+        <h2>{{ t('footer.contact') }}</h2>
+        <p>{{ t('footer.demoName') }}</p>
         <p>Demoallee 404</p>
         <p>76199 Karlsruhe</p>
-        <p>Deutschland</p>
-        <p class="demo-notice">Fiktive Entwicklungsanschrift</p>
+        <p>{{ t('footer.country') }}</p>
+        <p class="demo-notice">{{ t('footer.demoNotice') }}</p>
         <a href="mailto:kontakt@example.invalid">
           kontakt@example.invalid
         </a>

@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { getArtists, type Artist } from "../services/artists";
 
@@ -15,8 +16,7 @@ async function loadArtists(search = "") {
   try {
     artists.value = await getArtists(search);
   } catch {
-    errorMessage.value =
-      "Die Artists konnten nicht geladen werden. Bitte versuche es erneut.";
+    errorMessage.value = t('artists.loadFailed');
   } finally {
     loading.value = false;
   }
@@ -36,10 +36,9 @@ onMounted(() => {
     <section class="artists-header">
       <div>
         <p class="eyebrow">DISCOVER YOUR NEXT SHOW</p>
-        <h1>Artists entdecken</h1>
+        <h1>{{ t('artists.title') }}</h1>
         <p class="intro">
-          Entdecke Artists und Bands und finde neue Musik für dein nächstes
-          Konzerterlebnis.
+          {{ t('artists.intro') }}
         </p>
       </div>
 
@@ -47,35 +46,35 @@ onMounted(() => {
         <input
           v-model="searchTerm"
           type="search"
-          placeholder="Artist oder Genre suchen ..."
-          aria-label="Artists suchen"
+          :placeholder="t('artists.searchPlaceholder')"
+          :aria-label="t('artists.searchLabel')"
         />
-        <button type="submit">Suchen</button>
+        <button type="submit">{{ t('common.search') }}</button>
       </form>
     </section>
 
     <section class="artists-section">
       <div class="section-heading">
-        <h2>Alle Artists</h2>
+        <h2>{{ t('artists.all') }}</h2>
         <span v-if="!loading" class="result-count">
-          {{ artists.length }} Ergebnisse
+          {{ t('common.results', artists.length) }}
         </span>
       </div>
 
       <div v-if="loading" class="message">
-        Artists werden geladen ...
+        {{ t('artists.loading') }}
       </div>
 
       <div v-else-if="errorMessage" class="message error">
         {{ errorMessage }}
         <button class="retry-button" @click="searchArtists">
-          Erneut versuchen
+          {{ t('common.retry') }}
         </button>
       </div>
 
       <div v-else-if="artists.length === 0" class="message">
-        <h3>Keine Artists gefunden</h3>
-        <p>Versuche einen anderen Suchbegriff.</p>
+        <h3>{{ t('artists.emptyTitle') }}</h3>
+        <p>{{ t('common.emptyHint') }}</p>
       </div>
 
       <div v-else class="artists-grid">
@@ -88,7 +87,7 @@ onMounted(() => {
             <img
               v-if="artist.image"
               :src="artist.image"
-              :alt="artist.name || 'Artist'"
+              :alt="artist.name || t('artists.fallbackAlt')"
             />
             <span v-else class="image-placeholder">
               {{ artist.name?.charAt(0).toUpperCase() || "?" }}
@@ -101,7 +100,7 @@ onMounted(() => {
                 :to="`/artists/${artist.slug}`"
                 class="profile-link"
               >
-                {{ artist.name || "Unbekannter Artist" }}
+                {{ artist.name || t('artists.unknown') }}
               </RouterLink>
             </h3>
 
@@ -109,7 +108,7 @@ onMounted(() => {
               {{ artist.bio }}
             </p>
             <p v-else class="artist-bio muted">
-              Noch keine Biografie vorhanden.
+              {{ t('common.noBio') }}
             </p>
 
             <div v-if="artist.genres.length" class="genre-list">

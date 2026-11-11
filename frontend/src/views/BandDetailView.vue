@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { getBand, type Band } from "../services/artists";
@@ -18,7 +19,7 @@ async function loadBand() {
     const slug = String(route.params.slug);
     band.value = await getBand(slug);
   } catch {
-    errorMessage.value = "Die Band konnte nicht gefunden werden.";
+    errorMessage.value = t('bands.detail.notFound');
   } finally {
     loading.value = false;
   }
@@ -30,21 +31,21 @@ onMounted(loadBand);
 <template>
   <main class="detail-page">
     <div v-if="loading" class="state-message">
-      Band wird geladen ...
+      {{ t('bands.detail.loading') }}
     </div>
 
     <div v-else-if="errorMessage" class="state-message error">
-      <h1>Band nicht gefunden</h1>
+      <h1>{{ t('bands.detail.notFoundTitle') }}</h1>
       <p>{{ errorMessage }}</p>
       <RouterLink to="/bands" class="back-link">
-        Zurück zur Band-Übersicht
+        {{ t('bands.detail.backToList') }}
       </RouterLink>
     </div>
 
     <template v-else-if="band">
       <RouterLink to="/bands" class="back-link">
         <span aria-hidden="true">←</span>
-        Alle Bands
+        {{ t('bands.all') }}
       </RouterLink>
 
       <section class="profile-header">
@@ -80,28 +81,27 @@ onMounted(loadBand);
             rel="noopener noreferrer"
             class="website-link"
           >
-            Offizielle Website ↗
+            {{ t('common.website') }}
           </a>
         </div>
       </section>
 
       <section class="profile-section">
-        <h2>Über {{ band.name }}</h2>
+        <h2>{{ t('bands.detail.about', { name: band.name }) }}</h2>
 
         <p v-if="band.bio" class="biography">
           {{ band.bio }}
         </p>
         <p v-else class="muted">
-          Für diese Band wurde noch keine Biografie hinterlegt.
+          {{ t('bands.detail.noBioLong') }}
         </p>
       </section>
 
       <section class="profile-section">
         <div class="section-heading">
-          <h2>Bandmitglieder</h2>
+          <h2>{{ t('bands.detail.bandMembers') }}</h2>
           <span class="member-count">
-            {{ band.members.length }}
-            {{ band.members.length === 1 ? "Mitglied" : "Mitglieder" }}
+            {{ t('bands.detail.memberCount', band.members.length) }}
           </span>
         </div>
 
@@ -129,30 +129,30 @@ onMounted(loadBand);
                 {{ member.role }}
               </p>
               <p v-else class="member-role">
-                Bandmitglied
+                {{ t('bands.detail.memberRole') }}
               </p>
 
               <p v-if="member.joined_on" class="member-date">
-                Dabei seit {{ member.joined_on }}
+                {{ t('bands.detail.since', { date: member.joined_on }) }}
               </p>
             </div>
           </article>
         </div>
 
         <p v-else class="muted">
-          Für diese Band wurden noch keine Mitglieder eingetragen.
+          {{ t('bands.detail.noMembersLong') }}
         </p>
       </section>
 
       <section class="profile-section">
-        <h2>Informationen</h2>
+        <h2>{{ t('common.information') }}</h2>
 
         <div class="info-card">
-          <span class="info-label">Genres</span>
+          <span class="info-label">{{ t('common.genres') }}</span>
           <span v-if="band.genres.length">
             {{ band.genres.map((genre) => genre.name).join(", ") }}
           </span>
-          <span v-else class="muted">Keine Genres hinterlegt</span>
+          <span v-else class="muted">{{ t('common.noGenres') }}</span>
         </div>
       </section>
     </template>

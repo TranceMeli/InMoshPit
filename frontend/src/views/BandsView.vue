@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { getBands, type Band } from "../services/artists";
 
@@ -16,7 +17,7 @@ async function loadBands(search = "") {
     bands.value = await getBands(search);
   } catch {
     errorMessage.value =
-      "Die Bands konnten nicht geladen werden. Bitte versuche es erneut.";
+      t('bands.loadFailed');
   } finally {
     loading.value = false;
   }
@@ -36,10 +37,9 @@ onMounted(() => {
     <section class="bands-header">
       <div>
         <p class="eyebrow">FIND YOUR SOUND</p>
-        <h1>Bands entdecken</h1>
+        <h1>{{ t('bands.title') }}</h1>
         <p class="intro">
-          Lerne Bands kennen, entdecke ihre Mitglieder und finde deinen
-          nächsten Lieblingssound.
+          {{ t('bands.intro') }}
         </p>
       </div>
 
@@ -47,35 +47,35 @@ onMounted(() => {
         <input
           v-model="searchTerm"
           type="search"
-          placeholder="Band, Mitglied oder Genre suchen ..."
-          aria-label="Bands suchen"
+          :placeholder="t('bands.searchPlaceholder')"
+          :aria-label="t('bands.searchLabel')"
         />
-        <button type="submit">Suchen</button>
+        <button type="submit">{{ t('common.search') }}</button>
       </form>
     </section>
 
     <section class="bands-section">
       <div class="section-heading">
-        <h2>Alle Bands</h2>
+        <h2>{{ t('bands.all') }}</h2>
         <span v-if="!loading" class="result-count">
-          {{ bands.length }} Ergebnisse
+          {{ t('common.results', bands.length) }}
         </span>
       </div>
 
       <div v-if="loading" class="message">
-        Bands werden geladen ...
+        {{ t('bands.loading') }}
       </div>
 
       <div v-else-if="errorMessage" class="message error">
         {{ errorMessage }}
         <button class="retry-button" @click="searchBands">
-          Erneut versuchen
+          {{ t('common.retry') }}
         </button>
       </div>
 
       <div v-else-if="bands.length === 0" class="message">
-        <h3>Keine Bands gefunden</h3>
-        <p>Versuche einen anderen Suchbegriff.</p>
+        <h3>{{ t('bands.emptyTitle') }}</h3>
+        <p>{{ t('common.emptyHint') }}</p>
       </div>
 
       <div v-else class="bands-grid">
@@ -88,7 +88,7 @@ onMounted(() => {
             <img
               v-if="band.image"
               :src="band.image"
-              :alt="band.name || 'Band'"
+              :alt="band.name || t('bands.fallbackAlt')"
             />
             <span v-else class="image-placeholder">
               {{ band.name?.charAt(0).toUpperCase() || "?" }}
@@ -101,7 +101,7 @@ onMounted(() => {
                 :to="band.slug ? `/bands/${band.slug}` : '/bands'"
                 class="profile-link"
               >
-                {{ band.name || "Unbekannte Band" }}
+                {{ band.name || t('bands.unknown') }}
               </RouterLink>
             </h3>
 
@@ -109,7 +109,7 @@ onMounted(() => {
               {{ band.bio }}
             </p>
             <p v-else class="band-bio muted">
-              Noch keine Biografie vorhanden.
+              {{ t('common.noBio') }}
             </p>
 
             <div v-if="band.genres?.length" class="genre-list">
@@ -123,14 +123,14 @@ onMounted(() => {
             </div>
 
             <div class="members">
-              <h4>Mitglieder</h4>
+              <h4>{{ t('bands.members') }}</h4>
 
               <ul v-if="band.members?.length">
                 <li
                   v-for="member in band.members ?? []"
                   :key="member.id"
                 >
-                  <span>{{ member.artist?.name || "Unbekanntes Mitglied" }}</span>
+                  <span>{{ member.artist?.name || t('bands.unknownMember') }}</span>
                   <span v-if="member.role" class="member-role">
                     {{ member.role }}
                   </span>
@@ -138,7 +138,7 @@ onMounted(() => {
               </ul>
 
               <p v-else class="muted">
-                Noch keine Mitglieder eingetragen.
+                {{ t('bands.noMembers') }}
               </p>
             </div>
           </div>

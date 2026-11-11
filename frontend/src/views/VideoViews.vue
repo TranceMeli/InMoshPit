@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 
@@ -24,7 +25,7 @@ async function loadVideos() {
       ordering: "-published_at",
     });
   } catch {
-    error.value = "Die Konzertvideos konnten nicht geladen werden.";
+    error.value = t('videos.loadFailed');
   } finally {
     loading.value = false;
   }
@@ -39,11 +40,10 @@ onMounted(loadVideos);
       <div class="hero-content">
         <span class="eyebrow">THE SOUND OF LIVE MUSIC</span>
 
-        <h1>Live erleben. Immer wieder.</h1>
+        <h1>{{ t('videos.heroTitle') }}</h1>
 
         <p>
-          Entdecke Konzertmitschnitte, legendäre Auftritte und
-          neue Live-Momente aus der Welt der Musik.
+          {{ t('videos.heroText') }}
         </p>
       </div>
     </section>
@@ -52,11 +52,11 @@ onMounted(loadVideos);
       <div class="section-heading">
         <div>
           <span class="eyebrow">DISCOVER</span>
-          <h2>Konzertarchiv</h2>
+          <h2>{{ t('videos.archive') }}</h2>
         </div>
 
         <span class="video-count">
-          {{ videos.length }} Videos
+          {{ t('videos.count', videos.length) }}
         </span>
       </div>
 
@@ -64,17 +64,17 @@ onMounted(loadVideos);
         <input
           v-model="search"
           type="search"
-          placeholder="Künstler, Konzert oder Video suchen ..."
-          aria-label="Konzertvideos suchen"
+          :placeholder="t('videos.searchPlaceholder')"
+          :aria-label="t('videos.searchLabel')"
         />
 
         <button type="submit" :disabled="loading">
-          Suchen
+          {{ t('common.search') }}
         </button>
       </form>
 
       <p v-if="loading" class="state-message">
-        Konzertvideos werden geladen ...
+        {{ t('videos.loading') }}
       </p>
 
       <p v-else-if="error" class="state-message error">
@@ -82,7 +82,7 @@ onMounted(loadVideos);
       </p>
 
       <p v-else-if="videos.length === 0" class="state-message">
-        Keine Konzertvideos gefunden.
+        {{ t('videos.empty') }}
       </p>
 
       <div v-else class="video-grid">
@@ -96,7 +96,7 @@ onMounted(loadVideos);
             <img
               v-if="video.thumbnail"
               :src="video.thumbnail"
-              :alt="`Vorschaubild: ${video.title}`"
+              :alt="t('videos.thumbnailAlt', { title: video.title })"
               class="thumbnail"
               loading="lazy"
             />

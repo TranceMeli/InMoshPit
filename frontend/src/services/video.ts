@@ -1,3 +1,4 @@
+import { t } from "../i18n";
 
 import { api } from "./api";
 
@@ -61,7 +62,7 @@ export async function getVideo(slug: string): Promise<Video> {
 
 export function formatDuration(seconds?: number | null): string {
   if (seconds == null || seconds < 0) {
-    return "Unbekannte Länge";
+    return t("videos.unknownDuration");
   }
 
   const hours = Math.floor(seconds / 3600);

@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t, intlLocale } from "../i18n";
 import { computed, onMounted, ref } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 
@@ -68,7 +69,7 @@ async function loadVideo() {
       }
     }
   } catch {
-    error.value = "Das Konzertvideo konnte nicht geladen werden.";
+    error.value = t('videos.detail.loadFailed');
   } finally {
     loading.value = false;
   }
@@ -96,7 +97,7 @@ async function toggleLike() {
       likeCount.value += 1;
     }
   } catch {
-    error.value = "Deine Like-Aktion konnte nicht gespeichert werden.";
+    error.value = t('videos.detail.likeFailed');
   } finally {
     likeLoading.value = false;
   }
@@ -121,8 +122,7 @@ async function submitComment() {
     comments.value.push(comment);
     commentText.value = "";
   } catch {
-    commentError.value =
-      "Dein Kommentar konnte nicht veröffentlicht werden.";
+    commentError.value = t('videos.detail.commentFailed');
   } finally {
     submitting.value = false;
   }
@@ -154,7 +154,7 @@ function commentName(comment: VideoComment) {
 }
 
 function formatDate(value: string) {
-  return new Date(value).toLocaleDateString("de-DE", {
+  return new Date(value).toLocaleDateString(intlLocale(), {
     day: "2-digit",
     month: "long",
     year: "numeric",
@@ -167,7 +167,7 @@ onMounted(loadVideo);
 <template>
   <main class="video-detail-page">
     <div v-if="loading" class="page-state">
-      Konzertvideo wird geladen ...
+      {{ t('videos.detail.loading') }}
     </div>
 
     <div v-else-if="error && !video" class="page-state error">
@@ -186,7 +186,7 @@ onMounted(loadVideo);
           />
 
           <div v-else class="player-placeholder">
-            <span>VIDEO NOCH NICHT VERFÜGBAR</span>
+            <span>{{ t('videos.detail.unavailable') }}</span>
           </div>
 
           <div class="video-information">
@@ -211,38 +211,38 @@ onMounted(loadVideo);
               >
                 <span>{{ liked ? "♥" : "♡" }}</span>
                 {{ likeCount }}
-                {{ liked ? "Gefällt dir" : "Gefällt mir" }}
+                {{ liked ? t('videos.detail.liked') : t('videos.detail.like') }}
               </button>
 
               <span v-if="!isAuthenticated" class="login-hint">
                 <RouterLink to="/login">
-                  Anmelden
+                  {{ t('videos.detail.login') }}
                 </RouterLink>
-                zum Liken
+                {{ t('videos.detail.loginToLike') }}
               </span>
             </div>
 
             <div class="description-card">
-              <h2>Über dieses Konzert</h2>
+              <h2>{{ t('videos.detail.aboutConcert') }}</h2>
 
               <p v-if="video.description">
                 {{ video.description }}
               </p>
 
               <p v-else class="muted">
-                Für dieses Konzert gibt es noch keine Beschreibung.
+                {{ t('videos.detail.noDescription') }}
               </p>
 
               <div class="event-details">
                 <div>
-                  <span>Event</span>
+                  <span>{{ t('videos.detail.event') }}</span>
                   <RouterLink :to="`/events/${video.event_slug}`">
                     {{ video.event_title }}
                   </RouterLink>
                 </div>
 
                 <div>
-                  <span>Veranstaltungsort</span>
+                  <span>{{ t('videos.detail.venue') }}</span>
                   <strong>
                     {{ video.venue_name }}
                     <template v-if="video.venue_city">
@@ -252,7 +252,7 @@ onMounted(loadVideo);
                 </div>
 
                 <div v-if="video.published_at">
-                  <span>Veröffentlicht</span>
+                  <span>{{ t('videos.detail.published') }}</span>
                   <strong>{{ formatDate(video.published_at) }}</strong>
                 </div>
               </div>
@@ -261,7 +261,7 @@ onMounted(loadVideo);
 
           <section class="comments-section">
             <div class="comments-heading">
-              <h2>Kommentare</h2>
+              <h2>{{ t('videos.detail.comments') }}</h2>
               <span>{{ comments.length }}</span>
             </div>
 
@@ -272,7 +272,7 @@ onMounted(loadVideo);
             >
               <textarea
                 v-model="commentText"
-                placeholder="Was denkst du über diesen Auftritt?"
+                :placeholder="t('videos.detail.commentPlaceholder')"
                 maxlength="5000"
                 rows="3"
               />
@@ -284,7 +284,7 @@ onMounted(loadVideo);
                   type="submit"
                   :disabled="!commentText.trim() || submitting"
                 >
-                  {{ submitting ? "Wird veröffentlicht ..." : "Kommentieren" }}
+                  {{ submitting ? t('videos.detail.commentSubmitting') : t('videos.detail.commentSubmit') }}
                 </button>
               </div>
 
@@ -294,8 +294,8 @@ onMounted(loadVideo);
             </form>
 
             <div v-else class="login-prompt">
-              <RouterLink to="/login">Melde dich an</RouterLink>,
-              um einen Kommentar zu schreiben.
+              <RouterLink to="/login">{{ t('videos.detail.loginLink') }}</RouterLink>
+              {{ t('videos.detail.loginToComment') }}
             </div>
 
             <div v-if="comments.length" class="comment-list">
@@ -320,7 +320,7 @@ onMounted(loadVideo);
             </div>
 
             <p v-else class="empty-comments">
-              Noch keine Kommentare. Sei die erste Person, die etwas schreibt!
+              {{ t('videos.detail.noComments') }}
             </p>
           </section>
         </section>
@@ -328,17 +328,17 @@ onMounted(loadVideo);
         <aside class="sidebar">
           <div class="sidebar-card">
             <span class="eyebrow">KEEP DISCOVERING</span>
-            <h2>Mehr Live-Musik entdecken</h2>
+            <h2>{{ t('videos.detail.discoverTitle') }}</h2>
             <p>
-              Finde weitere Auftritte und entdecke neue Künstler.
+              {{ t('videos.detail.discoverText') }}
             </p>
 
             <RouterLink to="/videos" class="back-link">
-              Alle Videos ansehen
+              {{ t('videos.detail.allVideos') }}
             </RouterLink>
 
             <RouterLink to="/artists" class="back-link secondary">
-              Künstler entdecken
+              {{ t('videos.detail.discoverArtists') }}
             </RouterLink>
           </div>
         </aside>

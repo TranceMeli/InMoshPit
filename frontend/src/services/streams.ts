@@ -1,4 +1,5 @@
 import { api } from "./api";
+import { intlLocale, t } from "../i18n";
 
 export type StreamStatus = "scheduled" | "live" | "ended" | "cancelled";
 
@@ -56,15 +57,12 @@ export async function getStream(slug: string): Promise<Stream> {
   return response.data;
 }
 
-export const STATUS_LABELS: Record<StreamStatus, string> = {
-  scheduled: "Demnächst",
-  live: "LIVE",
-  ended: "Beendet",
-  cancelled: "Abgesagt",
-};
+export function statusLabel(status: StreamStatus): string {
+  return t(`streams.status.${status}`);
+}
 
 export function formatStreamDate(value: string): string {
-  return new Intl.DateTimeFormat("de-DE", {
+  return new Intl.DateTimeFormat(intlLocale(), {
     weekday: "short",
     day: "2-digit",
     month: "long",

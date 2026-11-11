@@ -1,36 +1,20 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 const currentRoute = useRoute();
 
-const pages: Record<string, { title: string; description: string }> = {
-  impressum: {
-    title: "Impressum",
-    description: "Die Anbieterinformationen werden hier ergänzt.",
-  },
-  datenschutz: {
-    title: "Datenschutzerklärung",
-    description:
-      "Die Datenschutzhinweise werden vor dem öffentlichen Betrieb vollständig ergänzt.",
-  },
-  kontakt: {
-    title: "Kontakt",
-    description: "Hier findest du künftig unsere Kontaktmöglichkeiten.",
-  },
-  nutzungsbedingungen: {
-    title: "Nutzungsbedingungen",
-    description:
-      "Die Nutzungsbedingungen für InMoshPit werden hier veröffentlicht.",
-  },
-};
+const pageKeys = ["impressum", "datenschutz", "kontakt", "nutzungsbedingungen"];
 
 const page = computed(() => {
   const key = currentRoute.path.split("/").filter(Boolean).pop() ?? "";
-  return pages[key] ?? {
-    title: "Informationen",
-    description: "Diese Seite befindet sich noch im Aufbau.",
+  const pageKey = pageKeys.includes(key) ? key : "fallback";
+
+  return {
+    title: t(`legal.${pageKey}.title`),
+    description: t(`legal.${pageKey}.description`),
   };
 });
 </script>
@@ -43,8 +27,7 @@ const page = computed(() => {
       <p>{{ page.description }}</p>
 
       <p class="notice">
-        Diese Seite ist aktuell ein Entwicklungsplatzhalter und noch keine
-        rechtsverbindliche Information.
+        {{ t('legal.notice') }}
       </p>
     </div>
   </main>

@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import { t } from "../i18n";
 import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import Hls from "hls.js";
 
@@ -43,7 +44,7 @@ function initializePlayer() {
 
   if (!video || !props.src) {
     isLoading.value = false;
-    playerError.value = "Für dieses Video ist keine Wiedergabequelle verfügbar.";
+    playerError.value = t('player.noSource');
     return;
   }
 
@@ -63,8 +64,7 @@ function initializePlayer() {
 
     hls.on(Hls.Events.ERROR, (_event, data) => {
       if (data.fatal) {
-        playerError.value =
-          "Der Stream konnte nicht geladen werden.";
+        playerError.value = t('player.streamFailed');
         isLoading.value = false;
         hls?.destroy();
         hls = null;
@@ -75,8 +75,7 @@ function initializePlayer() {
   }
 
   isLoading.value = false;
-  playerError.value =
-    "Dein Browser unterstützt dieses Videoformat leider nicht.";
+  playerError.value = t('player.unsupported');
 }
 
 function handleTimeUpdate() {
@@ -109,11 +108,11 @@ onBeforeUnmount(destroyPlayer);
       @loadedmetadata="isLoading = false"
       @waiting="isLoading = true"
       @playing="isLoading = false"
-      @error="playerError = 'Bei der Videowiedergabe ist ein Fehler aufgetreten.'"
+      @error="playerError = t('player.error')"
     />
 
     <div v-if="isLoading && !playerError" class="player-loading">
-      Video wird geladen ...
+      {{ t('player.loading') }}
     </div>
 
     <div v-if="playerError" class="player-error">
