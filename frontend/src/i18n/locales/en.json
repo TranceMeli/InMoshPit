@@ -73,6 +73,7 @@
       "submitting": "Signing in...",
       "invalid": "Username or password is incorrect.",
       "failed": "Sign-in failed. Please try again.",
+      "sessionExpired": "Your session has expired. Please sign in again.",
       "noAccount": "No account yet?"
     },
     "register": {

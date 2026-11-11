@@ -5,6 +5,7 @@ import { computed, onMounted, ref } from "vue";
 import { RouterLink, useRoute } from "vue-router";
 
 import VideoPlayer from "../components/VideoPlayer.vue";
+import { useAuthStore } from "../stores/auth";
 
 import {
   getVideo,
@@ -36,9 +37,8 @@ const liked = ref(false);
 const likeCount = ref(0);
 const likeLoading = ref(false);
 
-const isAuthenticated = computed(
-  () => Boolean(sessionStorage.getItem("access")),
-);
+const authStore = useAuthStore();
+const isAuthenticated = computed(() => authStore.isAuthenticated);
 
 const videoSlug = computed(() => String(route.params.slug));
 

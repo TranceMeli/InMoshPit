@@ -2,16 +2,30 @@
 <script setup lang="ts">
 import { t } from "../i18n";
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "../stores/auth";
 
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
 
 const username = ref("");
 const password = ref("");
 const errorMessage = ref("");
 const isLoading = ref(false);
+
+const sessionExpired = route.query.reason === "expired";
+
+/** Nur interne Pfade zulassen (kein Open Redirect über "//evil.com"). */
+function safeRedirect(): string {
+  const target = route.query.redirect;
+
+  return typeof target === "string" &&
+    target.startsWith("/") &&
+    !target.startsWith("//")
+    ? target
+    : "/dashboard";
+}
 
 async function handleLogin() {
   errorMessage.value = "";
@@ -20,7 +34,7 @@ async function handleLogin() {
   try {
     await authStore.login(username.value, password.value);
 
-    await router.push("/dashboard");
+    await router.push(safeRedirect());
   } catch (error: any) {
     if (error.response?.status === 401) {
       errorMessage.value = t('auth.login.invalid');
@@ -61,6 +75,10 @@ async function handleLogin() {
             required
           />
         </div>
+
+        <p v-if="sessionExpired && !errorMessage" class="info-message" role="status">
+          {{ t('auth.login.sessionExpired') }}
+        </p>
 
         <p v-if="errorMessage" class="error-message">
           {{ errorMessage }}
@@ -144,6 +162,13 @@ button:disabled {
 
 .error-message {
   color: var(--color-error);
+}
+
+.info-message {
+  padding: 0.6rem 0.8rem;
+  color: var(--color-text);
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-md);
 }
 
 .auth-link {

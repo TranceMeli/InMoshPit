@@ -73,6 +73,7 @@
       "submitting": "Anmeldung läuft...",
       "invalid": "Benutzername oder Passwort ist falsch.",
       "failed": "Anmeldung fehlgeschlagen. Bitte versuche es erneut.",
+      "sessionExpired": "Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.",
       "noAccount": "Noch keinen Account?"
     },
     "register": {

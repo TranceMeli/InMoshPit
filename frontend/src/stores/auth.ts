@@ -30,11 +30,19 @@ export const useAuthStore = defineStore("auth", () => {
       }
     );
 
-    accessToken.value = response.data.access;
-    refreshToken.value = response.data.refresh;
+    setTokens(response.data.access, response.data.refresh);
+  }
 
-    sessionStorage.setItem("access", response.data.access);
-    sessionStorage.setItem("refresh", response.data.refresh);
+  /** Übernimmt neue Tokens (Login oder automatischer Refresh). */
+  function setTokens(access: string, refresh: string | null) {
+    accessToken.value = access;
+    refreshToken.value = refresh;
+
+    sessionStorage.setItem("access", access);
+
+    if (refresh) {
+      sessionStorage.setItem("refresh", refresh);
+    }
   }
 
   function logout() {
@@ -50,6 +58,7 @@ export const useAuthStore = defineStore("auth", () => {
     refreshToken,
     isAuthenticated,
     login,
+    setTokens,
     logout,
   };
 });

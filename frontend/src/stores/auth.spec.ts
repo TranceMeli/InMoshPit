@@ -85,4 +85,16 @@ describe("Auth Store", () => {
 
     expect(authStore.isAuthenticated).toBe(false);
   });
+
+  it("should update tokens via setTokens", () => {
+    const authStore = useAuthStore();
+
+    authStore.setTokens("access-1", "refresh-1");
+    authStore.setTokens("access-2", null);
+
+    expect(authStore.accessToken).toBe("access-2");
+    // Ohne neues Refresh-Token bleibt das bisherige in der Sitzung erhalten.
+    expect(sessionStorage.getItem("access")).toBe("access-2");
+    expect(sessionStorage.getItem("refresh")).toBe("refresh-1");
+  });
 });
