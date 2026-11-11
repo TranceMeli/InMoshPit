@@ -5,7 +5,7 @@ from rest_framework import status
 from apps.artists.models import Band
 
 
-BANDS_URL = "/api/v1/artists/bands/"
+BANDS_URL = "/api/v1/bands/"
 
 
 @pytest.mark.django_db

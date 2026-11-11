@@ -33,7 +33,7 @@ urlpatterns = [
         TokenRefreshView.as_view(),
         name="token-refresh",
     ),
-    path("api/v1/artists/", include("apps.artists.urls")),
+    path("api/v1/", include("apps.artists.urls")),
     path("api/v1/events/", include("apps.events.urls")),
 
 

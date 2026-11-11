@@ -3,7 +3,7 @@ import pytest
 from rest_framework import status
 
 
-GENRES_URL = "/api/v1/artists/genres/"
+GENRES_URL = "/api/v1/genres/"
 
 
 @pytest.mark.django_db
