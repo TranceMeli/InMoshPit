@@ -13,9 +13,20 @@ with the recordings. Available in German and English.
 
 ## Stack
 
-- **Backend:** Python, Django, Django REST Framework, SQLite, JWT
-- **Frontend:** Vue 3, TypeScript, Vite, Pinia, vue-i18n
-- **Video:** HLS via hls.js
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+![Django REST Framework](https://img.shields.io/badge/DRF-A30000?style=for-the-badge&logo=django&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+
+![Vue 3](https://img.shields.io/badge/Vue_3-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Pinia](https://img.shields.io/badge/Pinia-FFD859?style=for-the-badge&logo=pinia&logoColor=black)
+![vue-i18n](https://img.shields.io/badge/vue--i18n-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)
+
+![HLS](https://img.shields.io/badge/HLS-450693?style=for-the-badge)
+![hls.js](https://img.shields.io/badge/hls.js-8C00FF?style=for-the-badge)
 
 ## Getting started
 
@@ -38,12 +49,27 @@ python manage.py runserver 8002
 ```powershell
 cd frontend
 npm install
-echo VITE_API_BASE_URL=http://127.0.0.1:8002/api/v1 > .env   # not committed
+copy .env.example .env             # local config, not committed
 npm run dev
 ```
 
 Create an admin user with `python manage.py createsuperuser` to manage
 content at `/admin/`.
+
+## Configuration
+
+Local development needs no configuration. For any other environment, set these
+environment variables for the backend (nothing secret is stored in the repo):
+
+| Variable | Purpose |
+|---|---|
+| `DJANGO_DEBUG` | `0` turns debug mode off (default: on) |
+| `DJANGO_SECRET_KEY` | **Required** when debug is off |
+| `DJANGO_ALLOWED_HOSTS` | Comma-separated host names |
+| `DJANGO_CORS_ALLOWED_ORIGINS` | Comma-separated frontend origins |
+
+Before going live also run `python manage.py check --deploy` (HTTPS settings,
+a real email backend) and use PostgreSQL instead of SQLite.
 
 ## Tests
 
@@ -56,5 +82,4 @@ cd frontend ; npm run test:run
 
 Early MVP. Not yet included: ingest for real live streams (RTMP to HLS),
 FFmpeg processing of uploaded recordings, live chat, and a content management
-UI beyond the Django admin. Settings in `backend/config/settings.py` are for
-development only (`DEBUG`, `SECRET_KEY`).
+UI beyond the Django admin.
