@@ -5,22 +5,23 @@ with the recordings. Available in German and English.
 
 ## Features
 
+- Video-platform layout: top bar with global search, collapsible sidebar, bottom navigation on phones
 - Live streams with countdown, status updates and HLS playback
 - Recordings archive with likes and comments
 - Events (concerts, festivals) with line-up and stages, artists and bands
-- Registration and JWT login
+- Registration and JWT login with automatic token refresh
 - DE/EN language switcher
 
 ## Screenshots
 
 <table>
   <tr>
-    <td width="50%" valign="top"><img src="docs/screenshots/streams.png" alt="Live streams overview"><br><sub>Live streams: live now and coming up</sub></td>
+    <td width="50%" valign="top"><img src="docs/screenshots/home.png" alt="Home with live, upcoming and recorded content"><br><sub>Home: live now, coming up and recordings</sub></td>
     <td width="50%" valign="top"><img src="docs/screenshots/events.png" alt="Events overview"><br><sub>Concerts and festivals in several cities</sub></td>
   </tr>
   <tr>
-    <td width="50%" valign="top"><img src="docs/screenshots/videos.png" alt="Concert recordings archive"><br><sub>Recordings archive</sub></td>
-    <td width="50%" valign="top"><img src="docs/screenshots/stream-countdown.png" alt="Countdown for an upcoming stream"><br><sub>Countdown for an upcoming stream</sub></td>
+    <td width="50%" valign="top"><img src="docs/screenshots/artists.png" alt="Artists overview with genre icons"><br><sub>Artists, icons follow the genre</sub></td>
+    <td width="50%" valign="top"><img src="docs/screenshots/home-mobile.jpg" alt="Home on a phone with bottom navigation" width="260"><br><sub>On phones: bottom navigation and search</sub></td>
   </tr>
 </table>
 
@@ -37,6 +38,7 @@ with the recordings. Available in German and English.
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Pinia](https://img.shields.io/badge/Pinia-FFD859?style=for-the-badge&logo=pinia&logoColor=black)
 ![vue-i18n](https://img.shields.io/badge/vue--i18n-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)
+![Material Symbols](https://img.shields.io/badge/Material_Symbols-757575?style=for-the-badge&logo=materialdesign&logoColor=white)
 
 ![HLS](https://img.shields.io/badge/HLS-450693?style=for-the-badge)
 ![hls.js](https://img.shields.io/badge/hls.js-8C00FF?style=for-the-badge)
@@ -53,7 +55,7 @@ python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 python manage.py migrate
-python manage.py seed_demo        # demo venues, acts, events, streams, videos and covers
+python manage.py seed_demo        # demo venues, acts, events, streams and videos
 python manage.py runserver 8002
 ```
 
