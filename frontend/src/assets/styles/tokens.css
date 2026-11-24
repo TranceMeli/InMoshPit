@@ -76,6 +76,9 @@
   --radius-xl: 1rem;
 
   --content-width: 1120px;
+  --topbar-height: 3.5rem;
+  --sidebar-expanded: 15rem;
+  --sidebar-rail: 4.5rem;
   --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 

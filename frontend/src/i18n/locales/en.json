@@ -9,7 +9,19 @@
     "videos": "Videos",
     "language": "Language",
     "languageDe": "German",
-    "languageEn": "English"
+    "languageEn": "English",
+    "home": "Home",
+    "homeLink": "Go to the home page",
+    "bands": "Bands",
+    "toggleMenu": "Toggle menu",
+    "mobile": "Bottom navigation",
+    "skip": "Skip to content",
+    "liveCount": "{n} stream live | {n} streams live",
+    "accountMenu": "Account menu",
+    "dashboard": "Dashboard",
+    "logout": "Log out",
+    "openSearch": "Open search",
+    "closeSearch": "Close search"
   },
   "common": {
     "search": "Search",
@@ -252,5 +264,33 @@
       "cancelledTitle": "This stream was cancelled",
       "allStreams": "All streams"
     }
+  },
+  "search": {
+    "placeholder": "Search acts, events, videos",
+    "label": "Search",
+    "prompt": "Enter a search term.",
+    "title": "Results for “{q}”",
+    "loading": "Searching ...",
+    "loadFailed": "The search failed. Please try again.",
+    "empty": "No results for “{q}”",
+    "section": {
+      "streams": "Streams",
+      "videos": "Videos",
+      "events": "Events",
+      "artists": "Artists",
+      "bands": "Bands"
+    }
+  },
+  "home": {
+    "filters": "Filters",
+    "filter": {
+      "all": "All",
+      "live": "Live now",
+      "upcoming": "Upcoming",
+      "recordings": "Recordings"
+    },
+    "loading": "Loading ...",
+    "loadFailed": "The content could not be loaded.",
+    "empty": "Nothing to see here yet."
   }
 }

@@ -9,7 +9,19 @@
     "videos": "Videos",
     "language": "Sprache",
     "languageDe": "Deutsch",
-    "languageEn": "Englisch"
+    "languageEn": "Englisch",
+    "home": "Start",
+    "homeLink": "Zur Startseite",
+    "bands": "Bands",
+    "toggleMenu": "Menü ein- oder ausklappen",
+    "mobile": "Navigation unten",
+    "skip": "Zum Inhalt springen",
+    "liveCount": "{n} Stream live | {n} Streams live",
+    "accountMenu": "Kontomenü",
+    "dashboard": "Dashboard",
+    "logout": "Abmelden",
+    "openSearch": "Suche öffnen",
+    "closeSearch": "Suche schließen"
   },
   "common": {
     "search": "Suchen",
@@ -252,5 +264,33 @@
       "cancelledTitle": "Dieser Stream wurde abgesagt",
       "allStreams": "Alle Streams"
     }
+  },
+  "search": {
+    "placeholder": "Acts, Events, Videos suchen",
+    "label": "Suche",
+    "prompt": "Gib einen Suchbegriff ein.",
+    "title": "Ergebnisse für „{q}“",
+    "loading": "Suche läuft ...",
+    "loadFailed": "Die Suche ist fehlgeschlagen. Bitte versuche es erneut.",
+    "empty": "Keine Ergebnisse für „{q}“",
+    "section": {
+      "streams": "Streams",
+      "videos": "Videos",
+      "events": "Veranstaltungen",
+      "artists": "Artists",
+      "bands": "Bands"
+    }
+  },
+  "home": {
+    "filters": "Filter",
+    "filter": {
+      "all": "Alle",
+      "live": "Jetzt live",
+      "upcoming": "Demnächst",
+      "recordings": "Aufzeichnungen"
+    },
+    "loading": "Inhalte werden geladen ...",
+    "loadFailed": "Die Inhalte konnten nicht geladen werden.",
+    "empty": "Hier gibt es noch nichts zu sehen."
   }
 }

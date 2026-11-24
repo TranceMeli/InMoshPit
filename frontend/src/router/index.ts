@@ -14,13 +14,29 @@ import EventsView from "../views/EventsView.vue";
 import EventDetailView from "../views/EventDetailView.vue";
 import VideoViews from "../views/VideoViews.vue";
 import StreamsView from "../views/StreamsView.vue";
+import HomeView from "../views/HomeView.vue";
+import SearchView from "../views/SearchView.vue";
+
+declare module "vue-router" {
+  interface RouteMeta {
+    requiresAuth?: boolean;
+    /** Zuschauer-Seiten: Die Seitenleiste ist nur als Icon-Leiste bzw. Drawer verfügbar. */
+    compactNav?: boolean;
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: "/",
-      redirect: "/login",
+      name: "home",
+      component: HomeView,
+    },
+    {
+      path: "/search",
+      name: "search",
+      component: SearchView,
     },
     {
       path: "/register",
@@ -99,6 +115,7 @@ const router = createRouter({
       path: "/streams/:slug",
       name: "stream-detail",
       component: () => import("../views/StreamDetailView.vue"),
+      meta: { compactNav: true },
     },
     {
       path: "/videos",
@@ -109,6 +126,7 @@ const router = createRouter({
       path: "/videos/:slug",
       name: "video-detail",
       component: () => import("../views/VideoDetailVue.vue"),
+      meta: { compactNav: true },
     },
   ],
 });

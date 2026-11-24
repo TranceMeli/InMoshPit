@@ -8,10 +8,29 @@ describe("application router", () => {
     setActivePinia(createPinia());
   });
 
-  it("redirects the root path to login", async () => {
+  it("shows the home page at the root path", async () => {
     await router.push("/");
 
-    expect(router.currentRoute.value.path).toBe("/login");
+    expect(router.currentRoute.value.path).toBe("/");
+    expect(router.currentRoute.value.name).toBe("home");
+  });
+
+  it("resolves the search page", async () => {
+    await router.push({ name: "search", query: { q: "iron" } });
+
+    expect(router.currentRoute.value.path).toBe("/search");
+    expect(router.currentRoute.value.query.q).toBe("iron");
+  });
+
+  it("marks the watch pages for the compact navigation", async () => {
+    await router.push("/streams/some-stream");
+    expect(router.currentRoute.value.meta.compactNav).toBe(true);
+
+    await router.push("/videos/some-video");
+    expect(router.currentRoute.value.meta.compactNav).toBe(true);
+
+    await router.push("/events");
+    expect(router.currentRoute.value.meta.compactNav).toBeUndefined();
   });
 
   it("redirects unauthenticated users away from the dashboard", async () => {
