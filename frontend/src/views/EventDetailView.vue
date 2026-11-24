@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import CoverTile from "../components/CoverTile.vue";
 import { t, intlLocale, placeName, timeZoneOptions } from "../i18n";
 import { onMounted, ref } from "vue";
 import { RouterLink, useRoute } from "vue-router";
@@ -73,7 +74,7 @@ onMounted(loadEvent);
         />
 
         <div v-else class="hero-placeholder">
-          <span>INMOSHPIT</span>
+          <CoverTile kind="event" :seed="event.slug" :event-type="event.event_type" />
         </div>
 
         <div class="hero-overlay"></div>
@@ -258,19 +259,16 @@ onMounted(loadEvent);
   object-fit: cover;
 }
 
-.hero-placeholder {
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(circle at 75% 25%, #8c00ff88, transparent 35%),
-    linear-gradient(135deg, #24103c, #450693);
+.hero-placeholder :deep(.cover) {
+  /* Das Icon sitzt rechts, damit es nicht hinter Titel und Text liegt. */
+  justify-items: end;
+  padding-right: 10%;
 }
 
-.hero-placeholder span {
-  color: #ffffff55;
-  font-size: clamp(2rem, 7vw, 5rem);
-  font-weight: 900;
-  letter-spacing: 0.2em;
+.hero-placeholder :deep(.app-icon) {
+  width: min(16rem, 70cqh);
+  height: min(16rem, 70cqh);
+  opacity: 0.9;
 }
 
 .hero-overlay {

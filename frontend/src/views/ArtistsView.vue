@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import CoverTile from "../components/CoverTile.vue";
 import { t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { getArtists, type Artist } from "../services/artists";
@@ -89,9 +90,12 @@ onMounted(() => {
               :src="artist.image"
               :alt="artist.name || t('artists.fallbackAlt')"
             />
-            <span v-else class="image-placeholder">
-              {{ artist.name?.charAt(0).toUpperCase() || "?" }}
-            </span>
+            <CoverTile
+              v-else
+              kind="artist"
+              :seed="artist.slug"
+              :genre="artist.genres[0]?.name ?? null"
+            />
           </div>
 
           <div class="artist-info">
@@ -257,12 +261,6 @@ h1 {
   object-fit: cover;
 }
 
-.image-placeholder {
-  color: var(--color-accent);
-  font-family: var(--font-display, sans-serif);
-  font-size: 4rem;
-  font-weight: 800;
-}
 
 .artist-info {
   padding: 1.1rem;

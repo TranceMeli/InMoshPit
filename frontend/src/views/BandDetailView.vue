@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import CoverTile from "../components/CoverTile.vue";
 import { t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -55,9 +56,12 @@ onMounted(loadBand);
             :src="band.image"
             :alt="band.name"
           />
-          <span v-else class="image-placeholder">
-            {{ band.name.charAt(0).toUpperCase() }}
-          </span>
+          <CoverTile
+            v-else
+            kind="band"
+            :seed="band.slug"
+            :genre="band.genres[0]?.name ?? null"
+          />
         </div>
 
         <div class="profile-heading">
@@ -209,12 +213,6 @@ onMounted(loadBand);
   object-fit: cover;
 }
 
-.image-placeholder {
-  color: var(--color-accent);
-  font-family: var(--font-display, sans-serif);
-  font-size: 8rem;
-  font-weight: 800;
-}
 
 .eyebrow {
   color: var(--color-accent);

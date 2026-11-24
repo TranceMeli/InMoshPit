@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import CoverTile from "../components/CoverTile.vue";
 import { t, intlLocale, placeName } from "../i18n";
 import { computed, onMounted, ref, watch } from "vue";
 import { RouterLink } from "vue-router";
@@ -142,9 +143,12 @@ onMounted(() => {
               :alt="event.title"
             />
 
-            <div v-else class="image-placeholder">
-              <span>INMOSHPIT</span>
-            </div>
+            <CoverTile
+              v-else
+              kind="event"
+              :seed="event.slug"
+              :event-type="event.event_type"
+            />
 
             <span class="event-type">
               {{ event.event_type === 'festival' ? t('common.festival') : t('common.concert') }}
@@ -358,22 +362,7 @@ onMounted(() => {
   transform: scale(1.04);
 }
 
-.image-placeholder {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  place-items: center;
-  background:
-    radial-gradient(circle at 70% 30%, #8c00ff88, transparent 35%),
-    linear-gradient(135deg, #24103c, #450693);
-}
 
-.image-placeholder span {
-  color: #ffffffaa;
-  font-size: 1.1rem;
-  font-weight: 900;
-  letter-spacing: 0.2em;
-}
 
 .event-type {
   position: absolute;

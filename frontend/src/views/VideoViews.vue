@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import CoverTile from "../components/CoverTile.vue";
 import { placeName, t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
@@ -101,9 +102,7 @@ onMounted(loadVideos);
               loading="lazy"
             />
 
-            <div v-else class="thumbnail-placeholder">
-              <span>IN MOSH PIT</span>
-            </div>
+            <CoverTile v-else kind="video" :seed="video.slug" />
 
             <span class="duration">
               {{ formatDuration(video.duration_seconds) }}
@@ -269,18 +268,6 @@ onMounted(loadVideos);
   display: block;
 }
 
-.thumbnail-placeholder {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  color: var(--color-accent);
-  font-weight: 900;
-  letter-spacing: 0.2em;
-  background:
-    radial-gradient(circle at 50% 50%, #8c00ff33, transparent 60%),
-    var(--color-surface-2);
-}
 
 .duration {
   position: absolute;

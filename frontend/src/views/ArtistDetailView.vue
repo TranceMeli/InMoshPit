@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import CoverTile from "../components/CoverTile.vue";
 import { t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -55,9 +56,12 @@ onMounted(loadArtist);
             :src="artist.image"
             :alt="artist.name"
           />
-          <span v-else class="image-placeholder">
-            {{ artist.name.charAt(0).toUpperCase() }}
-          </span>
+          <CoverTile
+            v-else
+            kind="artist"
+            :seed="artist.slug"
+            :genre="artist.genres[0]?.name ?? null"
+          />
         </div>
 
         <div class="profile-heading">
@@ -161,12 +165,6 @@ onMounted(loadArtist);
   object-fit: cover;
 }
 
-.image-placeholder {
-  color: var(--color-accent);
-  font-family: var(--font-display, sans-serif);
-  font-size: 8rem;
-  font-weight: 800;
-}
 
 .eyebrow {
   color: var(--color-accent);

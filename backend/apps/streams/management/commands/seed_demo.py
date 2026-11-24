@@ -1,11 +1,11 @@
 """Legt Demo-Daten an: Orte in mehreren Städten, Acts, Events, Streams, Videos.
 
 Aufruf:
-    python manage.py seed_demo                  # anlegen bzw. aktualisieren
-    python manage.py seed_demo --refresh-images # Cover neu erzeugen
+    python manage.py seed_demo
 
-Alles ist erfunden. Die Cover werden mit Pillow aus einfachen Formen in den
-Markenfarben erzeugt (siehe _artwork.py), es werden keine Fotos verwendet.
+Alles ist erfunden und enthält bewusst keine Bilder: Das Frontend zeigt für
+Einträge ohne Bild eine Icon-Kachel (Material Symbols). Bilder, die ein
+früherer Lauf erzeugt hat, werden entfernt.
 Als Videoquelle dient ein öffentlicher HLS-Teststream.
 
 Der Befehl ist idempotent und setzt die Termine bei jedem Lauf relativ zu
@@ -26,17 +26,10 @@ from apps.events.models import Event, EventArtist, Stage, Venue
 from apps.streams.models import Stream
 from apps.videos.models import Video
 
-from ._artwork import cover_png, kind_for
-
 TEST_HLS = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
 TEST_BASE = "https://test-streams.mux.dev/x36xhzz/"
 VARIANT = "url_6/193039199_mp4_h264_aac_hq_7.m3u8"
 PLAYLIST_PATH = "videos/hls/demo.m3u8"
-
-# 4:3 passt zu den querformatigen Karten und zum Profilbild (Zuschnitt in der Mitte).
-PORTRAIT = (1200, 900)
-WIDE = (1280, 720)
-HERO = (1600, 900)
 
 GENRES = ["Metal", "Punk", "Electro", "Synthwave", "Rock", "Folk"]
 
@@ -155,16 +148,8 @@ VIDEOS = [
 class Command(BaseCommand):
     help = "Creates demo data: venues in several cities, acts, events, streams and videos."
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            "--refresh-images",
-            action="store_true",
-            help="Regenerate all cover images, even if they already exist.",
-        )
-
     @transaction.atomic
     def handle(self, *args, **options):
-        self.refresh = options["refresh_images"]
         self.now = timezone.now()
 
         self.genres = self.make_genres()
@@ -199,27 +184,17 @@ class Command(BaseCommand):
 
         return moment.replace(minute=0, second=0, microsecond=0)
 
-    def ensure_cover(self, obj, field_name, genre, seed, size):
-        """Erzeugt das Cover, falls es fehlt (oder mit --refresh-images neu)."""
+    def clear_image(self, obj, field_name):
+        """Entfernt ein früher erzeugtes Bild; die Oberfläche zeigt dann die Icon-Kachel."""
         field = getattr(obj, field_name)
 
-        if field and not self.refresh and field.storage.exists(field.name):
-            return
-
         if field:
-            field.delete(save=False)
-
-        png = cover_png(kind_for(genre, seed), seed, *size)
-        field.save(f"{seed}.png", ContentFile(png), save=True)
+            field.delete(save=True)
 
     def performer(self, ref):
         """Löst (Art, Slug) in das Artist- bzw. Band-Objekt auf."""
         kind, slug = ref
         return self.artists[slug] if kind == "artist" else self.bands[slug]
-
-    def genre_of(self, ref):
-        kind, slug = ref
-        return self.genre_names[(kind, slug)]
 
     # ----------------------------------------------------------------- Stammdaten
 
@@ -231,16 +206,14 @@ class Command(BaseCommand):
 
     def make_artists(self):
         artists = {}
-        self.genre_names = {}
 
         for slug, name, bio, genre in ARTISTS:
             artist, _ = Artist.objects.update_or_create(
                 slug=slug, defaults={"name": name, "bio": bio},
             )
             artist.genres.set([self.genres[genre]])
-            self.ensure_cover(artist, "image", genre, slug, PORTRAIT)
+            self.clear_image(artist, "image")
             artists[slug] = artist
-            self.genre_names[("artist", slug)] = genre
 
         return artists
 
@@ -252,7 +225,7 @@ class Command(BaseCommand):
                 slug=slug, defaults={"name": name, "bio": bio},
             )
             band.genres.set([self.genres[genre]])
-            self.ensure_cover(band, "image", genre, slug, PORTRAIT)
+            self.clear_image(band, "image")
 
             for artist_slug, role in members:
                 BandMember.objects.update_or_create(
@@ -260,7 +233,6 @@ class Command(BaseCommand):
                 )
 
             bands[slug] = band
-            self.genre_names[("band", slug)] = genre
 
         return bands
 
@@ -299,9 +271,7 @@ class Command(BaseCommand):
                 },
             )
 
-            # Festivals bekommen die Sonne, Konzerte die Form des Headliners.
-            genre = "Synthwave" if etype == "festival" else self.genre_of(lineup[0][:2])
-            self.ensure_cover(event, "image", genre, slug, HERO)
+            self.clear_image(event, "image")
 
             stages = {}
             for position, (kind, performer_slug, stage_name, minutes) in enumerate(lineup):
@@ -370,7 +340,7 @@ class Command(BaseCommand):
                     "hls_playlist": playlist,
                 },
             )
-            self.ensure_cover(video, "thumbnail", self.genre_of(ref), slug, WIDE)
+            self.clear_image(video, "thumbnail")
             videos[slug] = video
 
         return videos
@@ -406,5 +376,4 @@ class Command(BaseCommand):
                 },
             )
 
-            genre = self.genre_of(ref) if ref else "Synthwave"
-            self.ensure_cover(stream, "thumbnail", genre, slug, WIDE)
+            self.clear_image(stream, "thumbnail")

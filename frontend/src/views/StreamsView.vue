@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CoverTile from "../components/CoverTile.vue";
 import { placeName, t } from "../i18n";
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
@@ -99,7 +100,12 @@ onBeforeUnmount(() => clearInterval(refreshTimer));
                   :alt="t('streams.thumbnailAlt', { title: stream.title })"
                   loading="lazy"
                 />
-                <span v-else class="thumb-placeholder">IN MOSH PIT</span>
+                <CoverTile
+                  v-else
+                  kind="stream"
+                  :seed="stream.slug"
+                  :status="stream.status"
+                />
                 <span class="status-badge" :class="stream.status">
                   <span v-if="stream.status === 'live'" class="dot" />
                   {{ statusLabel(stream.status) }}
@@ -201,15 +207,6 @@ onBeforeUnmount(() => clearInterval(refreshTimer));
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.thumb-placeholder {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: var(--color-muted);
-  font-weight: 800;
-  letter-spacing: 0.14em;
 }
 .status-badge {
   position: absolute;

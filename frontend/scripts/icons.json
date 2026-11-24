@@ -1,0 +1,36 @@
+{
+  "navigation": [
+    "home",
+    "sensors",
+    "calendar_month",
+    "smart_display",
+    "mic_external_on",
+    "groups"
+  ],
+  "topbar": [
+    "menu",
+    "search",
+    "search_off",
+    "close",
+    "account_circle",
+    "login",
+    "logout",
+    "person_add",
+    "dashboard",
+    "arrow_back",
+    "chevron_right"
+  ],
+  "tiles": [
+    "bolt",
+    "local_fire_department",
+    "graphic_eq",
+    "wb_twilight",
+    "album",
+    "forest",
+    "music_note",
+    "festival",
+    "stadium",
+    "play_circle",
+    "schedule"
+  ]
+}

@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import CoverTile from "../components/CoverTile.vue";
 import { t } from "../i18n";
 import { onMounted, ref } from "vue";
 import { getBands, type Band } from "../services/artists";
@@ -90,9 +91,12 @@ onMounted(() => {
               :src="band.image"
               :alt="band.name || t('bands.fallbackAlt')"
             />
-            <span v-else class="image-placeholder">
-              {{ band.name?.charAt(0).toUpperCase() || "?" }}
-            </span>
+            <CoverTile
+              v-else
+              kind="band"
+              :seed="band.slug"
+              :genre="band.genres?.[0]?.name ?? null"
+            />
           </div>
 
           <div class="band-info">
@@ -279,12 +283,6 @@ h1 {
   object-fit: cover;
 }
 
-.image-placeholder {
-  color: var(--color-accent);
-  font-family: var(--font-display, sans-serif);
-  font-size: 4rem;
-  font-weight: 800;
-}
 
 .band-info {
   padding: 1.1rem;

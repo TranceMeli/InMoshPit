@@ -1,6 +1,7 @@
 import os
 
 import pytest
+from django.core.files.base import ContentFile
 from django.core.management import call_command
 from django.utils import timezone
 from rest_framework.test import APIClient
@@ -56,23 +57,25 @@ def test_seed_is_idempotent(seeded):
     assert media_files(seeded) == before_files
 
 
-def test_every_act_event_stream_and_video_has_a_cover(seeded):
-    assert all(a.image for a in Artist.objects.all())
-    assert all(b.image for b in Band.objects.all())
-    assert all(e.image for e in Event.objects.all())
-    assert all(s.thumbnail for s in Stream.objects.all())
-    assert all(v.thumbnail for v in Video.objects.all())
-
-    for artist in Artist.objects.all():
-        assert artist.image.storage.exists(artist.image.name)
+def test_seeded_entries_have_no_images_so_the_frontend_shows_icons(seeded):
+    assert not any(a.image for a in Artist.objects.all())
+    assert not any(b.image for b in Band.objects.all())
+    assert not any(e.image for e in Event.objects.all())
+    assert not any(s.thumbnail for s in Stream.objects.all())
+    assert not any(v.thumbnail for v in Video.objects.all())
 
 
-def test_refresh_images_regenerates_without_duplicates(seeded):
-    before = media_files(seeded)
+def test_images_from_an_earlier_run_are_removed(seeded):
+    artist = Artist.objects.get(slug="lena-noise")
+    artist.image.save("old.png", ContentFile(b"png"), save=True)
+    stored = artist.image.name
+    assert artist.image.storage.exists(stored)
 
-    call_command("seed_demo", "--refresh-images", verbosity=0)
+    call_command("seed_demo", verbosity=0)
 
-    assert media_files(seeded) == before
+    artist.refresh_from_db()
+    assert not artist.image
+    assert not artist.image.storage.exists(stored)
 
 
 def test_streams_have_consistent_states(seeded):
@@ -110,7 +113,7 @@ def test_events_are_visible_through_the_api(seeded):
     assert len(events) == 7
     assert len(streams) == 7
     assert len(videos) == 3
-    assert all(e["image"] for e in events)
+    assert not any(e["image"] for e in events)
     assert all(m["artist"] for band in bands for m in band["members"])
     assert {b["slug"]: len(b["members"]) for b in bands} == {"iron-pit": 2, "velvet-riot": 2}
 
